@@ -124,6 +124,46 @@ button{
   font-size:22px;
   cursor:pointer;
 }
+/* SCANNER */
+.scanner{
+  font-family:monospace;
+  font-size:14px;
+  text-align:center;
+  margin:8px 0 12px;
+  letter-spacing:2px;
+  color:#7a5c2e;
+  animation:blink 1.2s infinite;
+}
+
+@keyframes blink{
+  0%,100%{opacity:1}
+  50%{opacity:.3}
+}
+
+/* PIN INPUT */
+.pin{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin:12px 0;
+}
+
+.digit{
+  width:45px;
+  height:55px;
+  text-align:center;
+  font-size:22px;
+  border:2px solid #b89a6c;
+  background:#efe0bf;
+  font-family:monospace;
+}
+
+.digit:focus{
+  outline:none;
+  border-color:#8b6a3f;
+  box-shadow:0 0 8px rgba(0,0,0,.3);
+}
+  
 </style>
 </head>
 
@@ -228,25 +268,50 @@ function openCase(code){
   currentCode=code;
   document.getElementById("modal").style.display="flex";
   document.getElementById("content").innerHTML=`
-    <h2>Подтвердите личность</h2>
-    <p>Введите секретный код разыскиваемого</p>
-    <input id="codeInput" placeholder="••••">
+
+    <h2 style="text-align:center">ВВЕДИТЕ СЕКРЕТНЫЙ КОД РАЗЫСКИВАЕМОГО</h2>
+    <div class="scanner">ПОДТВЕРЖДАЕМ ЛИЧНОСТЬ...</div>
+
+    <div class="pin">
+      <input maxlength="1" class="digit">
+      <input maxlength="1" class="digit">
+      <input maxlength="1" class="digit">
+      <input maxlength="1" class="digit">
+    </div>
+
     <button onclick="unlock()">Открыть дело</button>
   `;
+
+  const inputs=document.querySelectorAll(".digit");
+  inputs[0].focus();
+
+  inputs.forEach((input,i)=>{
+    input.addEventListener("input",()=>{
+      if(input.value && inputs[i+1]) inputs[i+1].focus();
+    });
+  });
 }
 
 function unlock(){
-  const val=document.getElementById("codeInput").value.trim();
+  const digits=document.querySelectorAll(".digit");
+  let val="";
+  digits.forEach(d=>val+=d.value);
+
   if(val!==currentCode){
-    alert("Код не принят");
+    document.querySelector(".scanner").innerText="ACCESS DENIED";
     return;
   }
-  const p=people[currentCode];
-  document.getElementById("content").innerHTML=`
-    <h2>${p.name}</h2>
-    <p>${p.text}</p>
-    ${p.gift?`<div class="gift">${p.gift}</div>`:""}
-  `;
+
+  document.querySelector(".scanner").innerText="ACCESS GRANTED";
+
+  setTimeout(()=>{
+    const p=people[currentCode];
+    document.getElementById("content").innerHTML=`
+      <h2>${p.name}</h2>
+      <p>${p.text}</p>
+      ${p.gift?`<div class="gift">${p.gift}</div>`:""}
+    `;
+  },700);
 }
 
 function closeModal(){
