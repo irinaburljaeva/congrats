@@ -3,232 +3,334 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>23 февраля — Команда</title>
+<title>Секретные досье героев команды</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap" rel="stylesheet">
 
 <style>
+:root{
+  --gold:#e6c15a;
+  --bg1:#141414;
+  --bg2:#1e1e1e;
+  --bg3:#232323;
+}
+*{box-sizing:border-box}
 body{
-margin:0;
-font-family:Montserrat, sans-serif;
-background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-color:#fff;
-text-align:center;
+  margin:0;
+  font-family:Montserrat, sans-serif;
+  color:#fff;
+  background:radial-gradient(1200px 600px at 50% -10%, #2a2a2a, #121212 60%, #0c0c0c);
+  text-align:center;
 }
-
 h1{
-margin-top:50px;
-font-weight:800;
-letter-spacing:2px;
+  margin:48px 16px 6px;
+  font-weight:800;
+  letter-spacing:.5px;
 }
-
+.subtitle{
+  opacity:.7;
+  margin-bottom:24px;
+}
 .team{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:30px;
-padding:40px;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:28px;
+  padding:24px 16px 48px;
 }
-
 .member{
-cursor:pointer;
-transition:.3s;
+  cursor:pointer;
+  transition:.25s;
 }
-
 .member img{
-width:140px;
-height:140px;
-border-radius:50%;
-border:3px solid gold;
-object-fit:cover;
+  width:140px;
+  height:140px;
+  border-radius:50%;
+  object-fit:cover;
+  border:2px solid var(--gold);
+  box-shadow:0 0 0 0 rgba(230,193,90,0);
+  transition:.25s;
 }
-
 .member:hover{
-transform:scale(1.08);
+  transform:translateY(-2px) scale(1.04);
+}
+.member:hover img{
+  box-shadow:0 0 16px 2px rgba(230,193,90,.35);
+}
+.member p{
+  margin:10px 0 0;
+  font-weight:600;
 }
 
+/* MODAL */
 .modal{
-display:none;
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.85);
-align-items:center;
-justify-content:center;
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.85);
+  align-items:center;
+  justify-content:center;
+  padding:16px;
 }
-
-.box{
-background:#141414;
-padding:30px;
-border-radius:18px;
-width:420px;
-max-width:90%;
-animation:fade .3s ease;
+.panel{
+  position:relative;
+  width:520px;
+  max-width:100%;
+  background:linear-gradient(180deg,var(--bg2),var(--bg1));
+  border-radius:18px;
+  padding:28px 24px 24px;
+  box-shadow:0 20px 60px rgba(0,0,0,.6);
+  animation:fade .28s ease;
+  text-align:left;
 }
-
-input{
-width:100%;
-padding:12px;
-border-radius:8px;
-border:none;
-margin-top:10px;
-text-align:center;
-font-size:16px;
-}
-
-button{
-margin-top:15px;
-padding:12px 25px;
-border:none;
-border-radius:8px;
-background:gold;
-font-weight:600;
-cursor:pointer;
-}
-
-.certificate{
-margin-top:20px;
-padding:15px;
-background:#1f1f1f;
-border-left:4px solid gold;
-border-radius:8px;
-}
-
 .close{
-position:absolute;
-top:20px;
-right:30px;
-cursor:pointer;
-font-size:22px;
+  position:absolute;
+  right:14px;
+  top:10px;
+  font-size:22px;
+  cursor:pointer;
+  opacity:.7;
+}
+.close:hover{opacity:1}
+
+.header{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:8px;
+}
+.badge{
+  font-size:12px;
+  letter-spacing:.8px;
+  padding:4px 8px;
+  border:1px solid var(--gold);
+  border-radius:999px;
+  color:var(--gold);
+}
+.title{
+  font-weight:800;
+  margin:6px 0 8px;
+}
+.muted{opacity:.7}
+
+.input{
+  width:100%;
+  padding:12px 12px;
+  margin-top:10px;
+  border-radius:10px;
+  border:1px solid #333;
+  background:#111;
+  color:#fff;
+  text-align:center;
+  font-size:16px;
+}
+.btn{
+  width:100%;
+  margin-top:12px;
+  padding:12px 14px;
+  border-radius:10px;
+  border:none;
+  background:var(--gold);
+  color:#000;
+  font-weight:700;
+  cursor:pointer;
+}
+.scan{
+  margin-top:10px;
+  height:6px;
+  background:#111;
+  border-radius:999px;
+  overflow:hidden;
+}
+.scan > div{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg, transparent, var(--gold), transparent);
+  animation:scan 1.2s linear infinite;
+}
+
+.card{
+  margin-top:12px;
+  background:linear-gradient(180deg,var(--bg3),#171717);
+  border:1px solid #2c2c2c;
+  border-radius:14px;
+  padding:14px 14px 12px;
+}
+.row{margin:6px 0}
+.label{
+  font-size:12px;
+  letter-spacing:.6px;
+  color:var(--gold);
+  opacity:.9;
+}
+.value{margin-top:2px}
+
+.gift{
+  margin-top:12px;
+  padding:12px;
+  border-left:3px solid var(--gold);
+  background:#141414;
+  border-radius:10px;
 }
 
 @keyframes fade{
-from{opacity:0;transform:translateY(15px)}
-to{opacity:1;transform:translateY(0)}
+  from{opacity:0; transform:translateY(10px)}
+  to{opacity:1; transform:translateY(0)}
+}
+@keyframes scan{
+  0%{width:0%}
+  50%{width:100%}
+  100%{width:0%}
 }
 </style>
 </head>
 <body>
 
-<h1>Секретное досье команды ⚡</h1>
+<h1>Секретные досье героев команды</h1>
+<div class="subtitle">Сила. Характер. Надёжность.</div>
 
 <div class="team">
-
-<div class="member" onclick="openAccess('4821')">
-<img src="dima.jpg">
-<p>Дима</p>
+  <div class="member" onclick="openAccess('4821')">
+    <img src="dima.jpg" alt="">
+    <p>Дима</p>
+  </div>
+  <div class="member" onclick="openAccess('7593')">
+    <img src="yaroslav.jpg" alt="">
+    <p>Ярослав</p>
+  </div>
+  <div class="member" onclick="openAccess('1938')">
+    <img src="egor.jpg" alt="">
+    <p>Егор</p>
+  </div>
+  <div class="member" onclick="openAccess('4488')">
+    <img src="zhenya.jpg" alt="">
+    <p>Женя</p>
+  </div>
+  <div class="member" onclick="openAccess('3344')">
+    <img src="dima2.jpg" alt="">
+    <p>Дима</p>
+  </div>
+  <div class="member" onclick="openAccess('9087')">
+    <img src="nikita.jpg" alt="">
+    <p>Никита</p>
+  </div>
+  <div class="member" onclick="openAccess('6651')">
+    <img src="tamerlan.jpg" alt="">
+    <p>Тамерлан</p>
+  </div>
 </div>
 
-<div class="member" onclick="openAccess('7593')">
-<img src="yaroslav.jpg">
-<p>Ярослав</p>
-</div>
-
-<div class="member" onclick="openAccess('1938')">
-<img src="egor.jpg">
-<p>Егор</p>
-</div>
-
-<div class="member" onclick="openAccess('4488')">
-<img src="zhenya.jpg">
-<p>Женя</p>
-</div>
-
-<div class="member" onclick="openAccess('3344')">
-<img src="dima2.jpg">
-<p>Дима</p>
-</div>
-
-<div class="member" onclick="openAccess('9087')">
-<img src="nikita.jpg">
-<p>Никита</p>
-</div>
-
-<div class="member" onclick="openAccess('6651')">
-<img src="tamerlan.jpg">
-<p>Тамерлан</p>
-</div>
-
-</div>
-
-<!-- МОДАЛКА -->
 <div class="modal" id="modal">
-<div class="close" onclick="closeModal()">×</div>
-<div class="box" id="modalContent"></div>
+  <div class="panel" id="panel">
+    <div class="close" onclick="closeModal()">×</div>
+    <div id="panelContent"></div>
+  </div>
 </div>
 
 <script>
-
-const users={
-"4821":{
-name:"Дима",
-text:"Дима, с 23 февраля! Спасибо за силу, надёжность и характер.",
-certificate:"🎁 Сертификат: 5 000 ₽"
-},
-"7593":{
-name:"Ярослав",
-text:"Ярослав, твоя энергия заряжает команду. С праздником!",
-certificate:""
-},
-"1938":{
-name:"Егор",
-text:"Егор, твоя системность — фундамент команды.",
-certificate:'<img src="egor_cert.jpg" width="100%">'
-},
-"4488":{
-name:"Женя",
-text:"Женя, на тебя всегда можно положиться. С 23 февраля!",
-certificate:""
-},
-"3344":{
-name:"Дима",
-text:"Дима, твоя ответственность — пример для всех.",
-certificate:""
-},
-"9087":{
-name:"Никита",
-text:"Никита, твоя харизма делает команду сильнее.",
-certificate:"🎁 Сертификат: Спортмастер 4 000 ₽"
-},
-"6651":{
-name:"Тамерлан",
-text:"Тамерлан, твоя решительность вдохновляет. С праздником!",
-certificate:""
-}
+const heroes = {
+  "4821":{
+    name:"Дима",
+    hero:"Страж стабильности",
+    superpower:"Надёжность под давлением",
+    message:"Спасибо за спокойную силу и уверенность, на которую всегда можно опереться. С праздником!",
+    gift:"🎁 Сертификат: 5 000 ₽"
+  },
+  "7593":{
+    name:"Ярослав",
+    hero:"Генератор энергии",
+    superpower:"Заряжает команду драйвом",
+    message:"Твоя энергия двигает всех вперёд. Спасибо за характер и позитив!",
+    gift:""
+  },
+  "1938":{
+    name:"Егор",
+    hero:"Архитектор порядка",
+    superpower:"Системность и ясность",
+    message:"Ты — фундамент, на котором держится многое. С праздником!",
+    gift:'<img src="egor_cert.jpg" style="width:100%;border-radius:8px">'
+  },
+  "4488":{
+    name:"Женя",
+    hero:"Опора команды",
+    superpower:"Всегда можно положиться",
+    message:"Спасибо за стабильность и надёжность. Очень ценим тебя!",
+    gift:""
+  },
+  "3344":{
+    name:"Дима",
+    hero:"Хранитель ответственности",
+    superpower:"Доводит до результата",
+    message:"Твоя ответственность — пример. С праздником!",
+    gift:""
+  },
+  "9087":{
+    name:"Никита",
+    hero:"Катализатор идей",
+    superpower:"Харизма и импульс",
+    message:"Твоя энергия усиливает команду. Спасибо!",
+    gift:"🎁 Подарок внутри"
+  },
+  "6651":{
+    name:"Тамерлан",
+    hero:"Сила характера",
+    superpower:"Решительность и выдержка",
+    message:"Вдохновляешь своим характером. С праздником!",
+    gift:""
+  }
 };
 
 let currentCode=null;
 
 function openAccess(code){
-currentCode=code;
-document.getElementById("modal").style.display="flex";
-document.getElementById("modalContent").innerHTML=`
-<h2>Доступ к личному досье</h2>
-<p>Введите персональный код бойца</p>
-<input id="codeInput" placeholder="••••">
-<button onclick="checkCode()">Открыть</button>
-`;
+  currentCode=code;
+  document.getElementById('modal').style.display='flex';
+  document.getElementById('panelContent').innerHTML=`
+    <div class="header">
+      <div class="badge">СВЕРХСЕКРЕТНО</div>
+    </div>
+    <div class="title">Идентификация героя</div>
+    <div class="muted">Введите персональный код доступа</div>
+    <div class="scan"><div></div></div>
+    <input id="codeInput" class="input" placeholder="••••">
+    <button class="btn" onclick="unlock()">Открыть досье</button>
+  `;
 }
 
-function checkCode(){
-const input=document.getElementById("codeInput").value.trim();
+function unlock(){
+  const val=document.getElementById('codeInput').value.trim();
+  if(val!==currentCode){
+    alert('Код не принят');
+    return;
+  }
+  const h=heroes[currentCode];
+  document.getElementById('panelContent').innerHTML=`
+    <div class="header">
+      <div class="badge">ДОСТУП РАЗРЕШЁН</div>
+    </div>
+    <div class="title">Досье героя: ${h.name}</div>
 
-if(input!==currentCode){
-alert("Неверный код");
-return;
-}
+    <div class="card">
+      <div class="row">
+        <div class="label">Роль</div>
+        <div class="value">${h.hero}</div>
+      </div>
+      <div class="row">
+        <div class="label">Суперсила</div>
+        <div class="value">${h.superpower}</div>
+      </div>
+      <div class="row">
+        <div class="label">Поздравление</div>
+        <div class="value">${h.message}</div>
+      </div>
+    </div>
 
-const u=users[currentCode];
-
-document.getElementById("modalContent").innerHTML=`
-<h2>${u.name}</h2>
-<p>${u.text}</p>
-${u.certificate?`<div class="certificate">${u.certificate}</div>`:""}
-`;
+    ${h.gift ? `<div class="gift">${h.gift}</div>` : ``}
+  `;
 }
 
 function closeModal(){
-document.getElementById("modal").style.display="none";
+  document.getElementById('modal').style.display='none';
 }
-
 </script>
 
 </body>
