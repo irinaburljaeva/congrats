@@ -3,131 +3,230 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>С 23 февраля</title>
+<title>23 февраля — Команда</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap" rel="stylesheet">
 
 <style>
-body {
-    margin: 0;
-    font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+body{
+margin:0;
+font-family:Montserrat, sans-serif;
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+color:#fff;
+text-align:center;
 }
 
-.box {
-    background: #121212;
-    padding: 40px;
-    border-radius: 20px;
-    width: 420px;
-    text-align: center;
-    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+h1{
+margin-top:50px;
+font-weight:800;
+letter-spacing:2px;
 }
 
-input {
-    width: 100%;
-    padding: 12px;
-    border-radius: 8px;
-    border: none;
-    margin-top: 15px;
-    font-size: 16px;
-    text-align: center;
+.team{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:30px;
+padding:40px;
 }
 
-button {
-    margin-top: 15px;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 8px;
-    background: gold;
-    font-weight: 600;
-    cursor: pointer;
+.member{
+cursor:pointer;
+transition:.3s;
 }
 
-.hidden { display: none; }
+.member img{
+width:140px;
+height:140px;
+border-radius:50%;
+border:3px solid gold;
+object-fit:cover;
+}
 
-.certificate {
-    margin-top: 20px;
-    padding: 15px;
-    background: #1f1f1f;
-    border-left: 4px solid gold;
-    border-radius: 8px;
+.member:hover{
+transform:scale(1.08);
+}
+
+.modal{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.85);
+align-items:center;
+justify-content:center;
+}
+
+.box{
+background:#141414;
+padding:30px;
+border-radius:18px;
+width:420px;
+max-width:90%;
+animation:fade .3s ease;
+}
+
+input{
+width:100%;
+padding:12px;
+border-radius:8px;
+border:none;
+margin-top:10px;
+text-align:center;
+font-size:16px;
+}
+
+button{
+margin-top:15px;
+padding:12px 25px;
+border:none;
+border-radius:8px;
+background:gold;
+font-weight:600;
+cursor:pointer;
+}
+
+.certificate{
+margin-top:20px;
+padding:15px;
+background:#1f1f1f;
+border-left:4px solid gold;
+border-radius:8px;
+}
+
+.close{
+position:absolute;
+top:20px;
+right:30px;
+cursor:pointer;
+font-size:22px;
+}
+
+@keyframes fade{
+from{opacity:0;transform:translateY(15px)}
+to{opacity:1;transform:translateY(0)}
 }
 </style>
 </head>
 <body>
 
-<div class="box" id="loginBox">
-<h2>Введите персональный код</h2>
-<input id="codeInput" placeholder="Код доступа">
-<button onclick="login()">Войти</button>
+<h1>Секретное досье команды ⚡</h1>
+
+<div class="team">
+
+<div class="member" onclick="openAccess('4821')">
+<img src="dima.jpg">
+<p>Дима</p>
 </div>
 
-<div class="box hidden" id="contentBox">
-<h2 id="name"></h2>
-<p id="text"></p>
-<div id="certificate"></div>
+<div class="member" onclick="openAccess('7593')">
+<img src="yaroslav.jpg">
+<p>Ярослав</p>
+</div>
+
+<div class="member" onclick="openAccess('1938')">
+<img src="egor.jpg">
+<p>Егор</p>
+</div>
+
+<div class="member" onclick="openAccess('4488')">
+<img src="zhenya.jpg">
+<p>Женя</p>
+</div>
+
+<div class="member" onclick="openAccess('3344')">
+<img src="dima2.jpg">
+<p>Дима</p>
+</div>
+
+<div class="member" onclick="openAccess('9087')">
+<img src="nikita.jpg">
+<p>Никита</p>
+</div>
+
+<div class="member" onclick="openAccess('6651')">
+<img src="tamerlan.jpg">
+<p>Тамерлан</p>
+</div>
+
+</div>
+
+<!-- МОДАЛКА -->
+<div class="modal" id="modal">
+<div class="close" onclick="closeModal()">×</div>
+<div class="box" id="modalContent"></div>
 </div>
 
 <script>
 
-const users = {
-  "4821": {
-    name: "Дима",
-    text: "Дима, с 23 февраля! Спасибо за надёжность, спокойствие и силу. Ты настоящая опора команды.",
-    certificate: "🎁 Сертификат: 5 000 ₽"
-  },
-  "7593": {
-    name: "Ярослав",
-    text: "Ярослав, твоя энергия заряжает всех вокруг. Спасибо за драйв и позитив!",
-    certificate: ""
-  },
-  "1938": {
-    name: "Егор",
-    text: "Егор, твоя системность — фундамент нашей команды. С праздником!",
-    certificate: '<img src="egor.jpg" width="100%">'
-  },
-  "4488": {
-    name: "Женя",
-    text: "Женя, на тебя всегда можно положиться. Спасибо за твою стабильность.",
-    certificate: ""
-  },
-  "3344": {
-    name: "Дима",
-    text: "Дима, твоя ответственность — пример для всех. С праздником!",
-    certificate: ""
-  },
-  "9087": {
-    name: "Никита",
-    text: "Никита, твоя харизма и энергия делают команду сильнее!",
-    certificate: "🎁 Сертификат: Спортмастер 4 000 ₽"
-  },
-  "6651": {
-    name: "Тамерлан",
-    text: "Тамерлан, твоя решительность и характер вдохновляют. С 23 февраля!",
-    certificate: ""
-  }
+const users={
+"4821":{
+name:"Дима",
+text:"Дима, с 23 февраля! Спасибо за силу, надёжность и характер.",
+certificate:"🎁 Сертификат: 5 000 ₽"
+},
+"7593":{
+name:"Ярослав",
+text:"Ярослав, твоя энергия заряжает команду. С праздником!",
+certificate:""
+},
+"1938":{
+name:"Егор",
+text:"Егор, твоя системность — фундамент команды.",
+certificate:'<img src="egor_cert.jpg" width="100%">'
+},
+"4488":{
+name:"Женя",
+text:"Женя, на тебя всегда можно положиться. С 23 февраля!",
+certificate:""
+},
+"3344":{
+name:"Дима",
+text:"Дима, твоя ответственность — пример для всех.",
+certificate:""
+},
+"9087":{
+name:"Никита",
+text:"Никита, твоя харизма делает команду сильнее.",
+certificate:"🎁 Сертификат: Спортмастер 4 000 ₽"
+},
+"6651":{
+name:"Тамерлан",
+text:"Тамерлан, твоя решительность вдохновляет. С праздником!",
+certificate:""
+}
 };
 
-function login() {
-  const code = document.getElementById("codeInput").value.trim();
+let currentCode=null;
 
-  if (!users[code]) {
-    alert("Неверный код");
-    return;
-  }
+function openAccess(code){
+currentCode=code;
+document.getElementById("modal").style.display="flex";
+document.getElementById("modalContent").innerHTML=`
+<h2>Доступ к личному досье</h2>
+<p>Введите персональный код бойца</p>
+<input id="codeInput" placeholder="••••">
+<button onclick="checkCode()">Открыть</button>
+`;
+}
 
-  const user = users[code];
+function checkCode(){
+const input=document.getElementById("codeInput").value.trim();
 
-  document.getElementById("loginBox").classList.add("hidden");
-  document.getElementById("contentBox").classList.remove("hidden");
+if(input!==currentCode){
+alert("Неверный код");
+return;
+}
 
-  document.getElementById("name").innerText = user.name;
-  document.getElementById("text").innerText = user.text;
-  document.getElementById("certificate").innerHTML = user.certificate;
+const u=users[currentCode];
+
+document.getElementById("modalContent").innerHTML=`
+<h2>${u.name}</h2>
+<p>${u.text}</p>
+${u.certificate?`<div class="certificate">${u.certificate}</div>`:""}
+`;
+}
+
+function closeModal(){
+document.getElementById("modal").style.display="none";
 }
 
 </script>
