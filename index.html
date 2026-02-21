@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>С 23 февраля!</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: white;
+    text-align: center;
+}
+
+h1 {
+    margin-top: 60px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin: 60px;
+}
+
+.card {
+    width: 180px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.card img {
+    width: 100%;
+    border-radius: 50%;
+    border: 3px solid #ffd700;
+}
+
+.card:hover {
+    transform: scale(1.08);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: #1c1c1c;
+    padding: 40px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 600px;
+    text-align: left;
+    animation: fadeIn 0.4s ease;
+}
+
+.close {
+    float: right;
+    cursor: pointer;
+    font-size: 22px;
+}
+
+.certificate {
+    margin-top: 20px;
+    padding: 15px;
+    background: #2c2c2c;
+    border-left: 4px solid gold;
+}
+
+@keyframes fadeIn {
+    from {opacity:0; transform: translateY(20px);}
+    to {opacity:1; transform: translateY(0);}
+}
+</style>
+</head>
+<body>
+
+<h1>С Днём защитника Отечества!</h1>
+
+<div class="container">
+
+<div class="card" onclick="openCard('dima')">
+<img src="dima.jpg">
+<p>Дима</p>
+</div>
+
+<div class="card" onclick="openCard('yaroslav')">
+<img src="yaroslav.jpg">
+<p>Ярослав</p>
+</div>
+
+<div class="card" onclick="openCard('egor')">
+<img src="egor.jpg">
+<p>Егор</p>
+</div>
+
+<div class="card" onclick="openCard('zhenya')">
+<img src="zhenya.jpg">
+<p>Женя</p>
+</div>
+
+<div class="card" onclick="openCard('dima2')">
+<img src="dima2.jpg">
+<p>Дима</p>
+</div>
+
+<div class="card" onclick="openCard('nikita')">
+<img src="nikita.jpg">
+<p>Никита</p>
+</div>
+
+<div class="card" onclick="openCard('tamerlan')">
+<img src="tamerlan.jpg">
+<p>Тамерлан</p>
+</div>
+
+</div>
+
+<div id="modal" class="modal">
+<div class="modal-content">
+<span class="close" onclick="closeModal()">×</span>
+<div id="content"></div>
+</div>
+</div>
+
+<script>
+
+const data = {
+    dima: {
+        key: "4821",
+        text: "Дима, спасибо за твою надёжность и спокойную силу. Ты опора команды!",
+        certificate: "🎁 Сертификат: 5 000 ₽ на Wildberries"
+    },
+    yaroslav: {
+        key: "7593",
+        text: "Ярослав, твоя энергия заряжает всех вокруг. Спасибо за драйв!",
+        certificate: ""
+    },
+    egor: {
+        key: "1938",
+        text: "Егор, твоя системность — это наш фундамент. Ценим тебя!",
+        certificate: "🎁 Сертификат: Ozon 3 000 ₽"
+    },
+    zhenya: {
+        key: "4488",
+        text: "Женя, ты тот человек, на которого всегда можно положиться.",
+        certificate: ""
+    },
+    dima2: {
+        key: "3344",
+        text: "Дима, твоя ответственность — пример для всех!",
+        certificate: ""
+    },
+    nikita: {
+        key: "9087",
+        text: "Никита, твоя харизма делает нашу команду сильнее.",
+        certificate: "🎁 Сертификат: Спортмастер 4 000 ₽"
+    },
+    tamerlan: {
+        key: "6651",
+        text: "Тамерлан, твоя решительность вдохновляет!",
+        certificate: ""
+    }
+};
+
+function openCard(user) {
+    const params = new URLSearchParams(window.location.search);
+    const key = params.get("key");
+
+    if (!data[user] || data[user].key !== key) {
+        alert("Доступ ограничен");
+        return;
+    }
+
+    document.getElementById("content").innerHTML = `
+        <h2>${data[user].text}</h2>
+        ${data[user].certificate ? `<div class="certificate">${data[user].certificate}</div>` : ""}
+    `;
+
+    document.getElementById("modal").style.display = "flex";
+}
+
+function closeModal() {
+    document.getElementById("modal").style.display = "none";
+}
+
+</script>
+
+</body>
+</html>
