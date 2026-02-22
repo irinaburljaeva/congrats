@@ -215,7 +215,44 @@ h1{
   border:2px solid #b89a6c;
   background:#efe0bf;
 }
+  
+/* ===== SHERIFF DOSSIER ===== */
 
+.card{
+  background:
+    radial-gradient(ellipse at center, rgba(0,0,0,.15), transparent 60%),
+    url("https://www.transparenttextures.com/patterns/old-paper.png"),
+    #e7d3a7;
+  box-shadow:
+    inset 0 0 40px rgba(0,0,0,.25),
+    0 20px 40px rgba(0,0,0,.45);
+  border:1px solid rgba(0,0,0,.25);
+}
+
+/* заголовок дела */
+.case-header{
+  font-family:"Playfair Display", serif;
+  font-size:22px;
+  letter-spacing:2px;
+  opacity:.85;
+  margin-bottom:10px;
+}
+
+/* красная печать CONFIDENTIAL */
+.classified{
+  position:absolute;
+  top:12px;
+  left:18px;
+  font-family:monospace;
+  font-weight:700;
+  letter-spacing:2px;
+  font-size:14px;
+  color:#7a0000;
+  border:2px solid #7a0000;
+  padding:4px 8px;
+  transform:rotate(-10deg);
+  opacity:.65;
+}
 /* ===== SECRET ACCESS CINEMATIC ===== */
 
 .access-screen{
@@ -340,6 +377,30 @@ h1{
 .poster.pulse{
   animation:posterPulse 1.6s ease;
 }
+  /* ===== STAMP IMPACT ===== */
+
+@keyframes stampImpact{
+  0%{ transform:scale(3) rotate(-12deg); opacity:0; }
+  50%{ transform:scale(.9) rotate(-12deg); opacity:1; }
+  70%{ transform:scale(1.05) rotate(-12deg); }
+  100%{ transform:scale(1) rotate(-12deg); opacity:1; }
+}
+
+.stamp.show{
+  animation:stampImpact .45s ease forwards;
+}
+
+/* лёгкая тряска экрана */
+@keyframes screenShake{
+  0%,100%{ transform:translate(0) }
+  25%{ transform:translate(-2px,1px) }
+  50%{ transform:translate(2px,-1px) }
+  75%{ transform:translate(-1px,2px) }
+}
+
+.shake-screen{
+  animation:screenShake .35s;
+}
   
 </style>
 </head>
@@ -447,26 +508,30 @@ function openCase(code){
   document.getElementById("modal").style.display="flex";
 
   document.getElementById("content").innerHTML=`
-  <div class="access-screen">
+<div class="classified">КОНФИДЕНЦИАЛЬНО</div>
 
-    <div class="access-title">Секретный доступ</div>
-    <div class="access-sub">Устанавливаем вашу личность </div>
+<div class="access-screen">
 
-    <div class="pin-wrap">
+  <div class="case-header">ОФИС ШЕРИФА - необходимо уточнить личность</div>
 
-      <div class="pin" id="pinBox">
-        <input maxlength="1" class="digit">
-        <input maxlength="1" class="digit">
-        <input maxlength="1" class="digit">
-        <input maxlength="1" class="digit">
-      </div>
+  <div class="access-title">Секретный доступ</div>
+  <div class="access-sub">Подтвердите личность</div>
 
-      <button class="open-btn" onclick="unlock()">Открыть дело</button>
+  <div class="pin-wrap">
 
+    <div class="pin" id="pinBox">
+      <input maxlength="1" class="digit">
+      <input maxlength="1" class="digit">
+      <input maxlength="1" class="digit">
+      <input maxlength="1" class="digit">
     </div>
 
-    <div class="access-hint">Введите персональный код доступа</div>
+    <button class="open-btn" onclick="unlock()">Открыть дело</button>
+
   </div>
+
+  <div class="access-hint">Код доступа шерифа</div>
+</div>
 `;
   const inputs=document.querySelectorAll(".digit");
   inputs[0].focus();
@@ -499,8 +564,12 @@ document.getElementById("stampSound").play().catch(()=>{});
   const p=people[currentCode];
 
   document.getElementById("content").innerHTML=`
-    <div class="stamp">ACCESS GRANTED</div>
+    <div class="stamp">ДОСТУП ПРЕДОСТАВЛЕН</div>
+document.body.classList.add("shake-screen");
+setTimeout(()=>document.body.classList.remove("shake-screen"),350);
 
+document.getElementById("stampSound").currentTime=0;
+document.getElementById("stampSound").play().catch(()=>{});
     <h2>${p.name}</h2>
 
     <div class="wanted-block">
@@ -522,6 +591,7 @@ document.getElementById("stampSound").play().catch(()=>{});
   `;
 
   setTimeout(()=>document.querySelector(".stamp").classList.add("show"),50);
+  
 }
 
 function openPDF(file){
