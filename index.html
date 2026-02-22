@@ -98,15 +98,16 @@ box-sizing: border-box;
 
 /* ── КАРТОЧКА ── */
 .card {
-background-image:
-radial-gradient(ellipse at 15% 10%, rgba(80,40,0,.25) 0%, transparent 40%),
-radial-gradient(ellipse at 85% 90%, rgba(60,30,0,.20) 0%, transparent 35%),
-radial-gradient(ellipse at 70% 20%, rgba(0,0,0,.15) 0%, transparent 30%),
-url(‘00FCF7F2-9EA6-42D7-B227-EA190B815828.png’);
-background-size: cover, cover, cover, cover;
-background-blend-mode: multiply, multiply, multiply, normal;
+  background-image:
+    radial-gradient(ellipse at 15% 10%, rgba(80,40,0,.25) 0%, transparent 40%),
+    radial-gradient(ellipse at 85% 90%, rgba(60,30,0,.20) 0%, transparent 35%),
+    url('00FCF7F2-9EA6-42D7-B227-EA190B815828.png');
+  background-size: auto, auto, cover;
+  /* background-blend-mode убираем полностью */
+}
 
-border-radius: 3px;
+
+border-radius: 3px; 
 padding: 52px 24px 32px;
 max-width: 520px;
 width: 100%;
