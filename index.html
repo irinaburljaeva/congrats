@@ -41,17 +41,7 @@ h1{
   position:relative;  
 }
 
-/* Тень как у плаката на стене */
-.poster::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  box-shadow:
-    0 30px 40px rgba(0,0,0,.55),
-    0 10px 15px rgba(0,0,0,.35);
-  z-index:-1;
-  border-radius:6px;
-}
+
 
 /* Лёгкий hover */
 .poster:hover{
@@ -458,6 +448,11 @@ function unlock(){
   },700);
 }
 
+  setTimeout(()=>{
+  const stamp=document.querySelector(".stamp");
+  if(stamp) stamp.classList.add("show");
+},50);
+  
 function closeModal(){
   document.getElementById("modal").style.display="none";
   document.getElementById("content").innerHTML="";
