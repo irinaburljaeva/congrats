@@ -89,6 +89,20 @@ h1{
   margin-bottom:18px;
 }
 
+  .pdf-frame{
+  margin-top:14px;
+  border:2px solid #b89a6c;
+  border-radius:4px;
+  overflow:hidden;
+  background:#fff;
+}
+
+.pdf-frame iframe{
+  width:100%;
+  height:420px;
+  border:none;
+}
+
 .hint{
   font-family:Montserrat, sans-serif;
   color:#cdbb96;
@@ -259,13 +273,20 @@ const people={
 "4821":{
 name:"Дима",
 text:"Разыскивается за надёжность и силу характера.",
-gift:"🎁 Для вручения подарочного сертификата"
+gift:{
+text:"🎁 Подарочный сертификат",
+file:"10585.pdf"
+}
+
 },
 "7593":{
 name:"Ярослав",
 text:"Разыскивается за энергию и драйв.",
-gift:"🎁 Для вручения подарка"
-},
+gift:{
+text:"🎁 Подарочный сертификат",
+file:"Подарочный сертификат.pdf"
+}
+
 "1938":{
 name:"Егор",
 text:"Разыскивается за стабильность и системность.",
@@ -336,9 +357,15 @@ function unlock(){
     document.getElementById("content").innerHTML=`
       <h2>${p.name}</h2>
       <p>${p.text}</p>
-      ${p.gift?`<div class="gift">${p.gift}</div>`:""}
-    `;
-  },700);
+     ${p.gift?`
+<div class="gift">
+  ${p.gift.text}
+
+  <div class="pdf-frame">
+    <iframe src="${p.gift.file}"></iframe>
+  </div>
+</div>
+`:""},700);
 }
 
 function closeModal(){
