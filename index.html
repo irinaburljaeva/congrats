@@ -277,40 +277,40 @@ gift:{
 text:"🎁 Подарочный сертификат",
 file:"10585.pdf"
 }
-
 },
+
 "7593":{
 name:"Ярослав",
 text:"Разыскивается за энергию и драйв.",
 gift:{
 text:"🎁 Подарочный сертификат",
-file:"Подарочный сертификат.pdf"
+file:"podarok-yaroslav.pdf"
 }
+},
 
 "1938":{
 name:"Егор",
-text:"Разыскивается за стабильность и системность.",
-gift:""
+text:"Разыскивается за стабильность и системность."
 },
+
 "4488":{
 name:"Женя",
-text:"Разыскивается за поддержку и ответственность.",
-gift:""
+text:"Разыскивается за поддержку и ответственность."
 },
+
 "9087":{
 name:"Никита",
-text:"Разыскивается за харизму.",
-gift:""
+text:"Разыскивается за харизму."
 },
+
 "6651":{
 name:"Тамерлан",
-text:"Разыскивается за уверенность.",
-gift:""
+text:"Разыскивается за уверенность."
 },
+
 "3344":{
 name:"Дима",
-text:"Разыскивается за доведение до результата.",
-gift:""
+text:"Разыскивается за доведение до результата."
 }
 };
 
@@ -333,6 +333,7 @@ function openCase(code){
 
   const inputs=document.querySelectorAll(".digit");
   inputs[0].focus();
+
   inputs.forEach((input,i)=>{
     input.addEventListener("input",()=>{
       if(input.value && inputs[i+1]) inputs[i+1].focus();
@@ -354,24 +355,28 @@ function unlock(){
 
   setTimeout(()=>{
     const p=people[currentCode];
+    if(!p) return;
+
     document.getElementById("content").innerHTML=`
       <h2>${p.name}</h2>
       <p>${p.text}</p>
-     ${p.gift?`
-<div class="gift">
-  ${p.gift.text}
 
-  <div class="pdf-frame">
-    <iframe src="${p.gift.file}"></iframe>
-  </div>
-</div>
-`:""},700);
+      ${p.gift?`
+      <div class="gift">
+        ${p.gift.text}
+        <div class="pdf-frame">
+          <iframe src="${p.gift.file}"></iframe>
+        </div>
+      </div>
+      `:""}
+    `;
+  },700);
 }
 
 function closeModal(){
   document.getElementById("modal").style.display="none";
+  document.getElementById("content").innerHTML="";
 }
 </script>
-
 </body>
 </html>
