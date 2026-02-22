@@ -551,25 +551,19 @@ function openCase(code){
 
 function unlock(){
   const val=[...document.querySelectorAll(".digit")].map(d=>d.value).join("");
+
   if(val!==currentCode){
-  const box=document.getElementById("pinBox");
-  box.classList.add("shake");
-  setTimeout(()=>box.classList.remove("shake"),350);
-  return;
-    
-document.getElementById("stampSound").currentTime=0;
-document.getElementById("stampSound").play().catch(()=>{});
-}
+    const box=document.getElementById("pinBox");
+    box.classList.add("shake");
+    setTimeout(()=>box.classList.remove("shake"),350);
+    return;
+  }
 
   const p=people[currentCode];
 
   document.getElementById("content").innerHTML=`
     <div class="stamp">ДОСТУП ПРЕДОСТАВЛЕН</div>
-document.body.classList.add("shake-screen");
-setTimeout(()=>document.body.classList.remove("shake-screen"),350);
 
-document.getElementById("stampSound").currentTime=0;
-document.getElementById("stampSound").play().catch(()=>{});
     <h2>${p.name}</h2>
 
     <div class="wanted-block">
@@ -590,8 +584,13 @@ document.getElementById("stampSound").play().catch(()=>{});
     </div>`:""}
   `;
 
+  document.body.classList.add("shake-screen");
+  setTimeout(()=>document.body.classList.remove("shake-screen"),350);
+
+  document.getElementById("stampSound").currentTime=0;
+  document.getElementById("stampSound").play().catch(()=>{});
+
   setTimeout(()=>document.querySelector(".stamp").classList.add("show"),50);
-  
 }
 
 function openPDF(file){
