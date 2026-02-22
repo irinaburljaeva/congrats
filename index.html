@@ -362,21 +362,49 @@ let currentCode=null;
 function openCase(code){
   currentCode=code;
   document.getElementById("modal").style.display="flex";
+
   document.getElementById("content").innerHTML=`
-    <h2 style="text-align:center">Введите секретный код</h2>
-    <div class="pin">
-      <input maxlength="1" class="digit">
-      <input maxlength="1" class="digit">
-      <input maxlength="1" class="digit">
-      <input maxlength="1" class="digit">
+    <div class="access-screen">
+
+      <div class="access-title">Секретный доступ</div>
+
+      <div class="pin" id="pinBox">
+        <input maxlength="1" class="digit">
+        <input maxlength="1" class="digit">
+        <input maxlength="1" class="digit">
+        <input maxlength="1" class="digit">
+      </div>
+
+      <button class="open-btn" onclick="unlock()">Открыть дело</button>
+
+      <div class="access-hint">Введите персональный код доступа</div>
     </div>
-    <button onclick="unlock()">Открыть дело</button>
   `;
+
+  const inputs=document.querySelectorAll(".digit");
+  inputs[0].focus();
+
+  inputs.forEach((input,i)=>{
+    input.addEventListener("input",()=>{
+      if(input.value && inputs[i+1]) inputs[i+1].focus();
+    });
+
+    input.addEventListener("keydown",(e)=>{
+      if(e.key==="Backspace" && !input.value && inputs[i-1])
+        inputs[i-1].focus();
+    });
+  });
+}
 }
 
 function unlock(){
   const val=[...document.querySelectorAll(".digit")].map(d=>d.value).join("");
-  if(val!==currentCode) return;
+  if(val!==currentCode){
+  const box=document.getElementById("pinBox");
+  box.classList.add("shake");
+  setTimeout(()=>box.classList.remove("shake"),350);
+  return;
+}
 
   const p=people[currentCode];
 
