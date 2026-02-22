@@ -331,7 +331,16 @@ h1{
   opacity:.25;
   pointer-events:none;
 }
+@keyframes posterPulse{
+  0%   { transform:scale(1); }
+  50%  { transform:scale(1.04); }
+  100% { transform:scale(1); }
+}
 
+.poster.pulse{
+  animation:posterPulse 1.6s ease;
+}
+  
 </style>
 </head>
 
@@ -528,6 +537,47 @@ function closePDF(){
 function closeModal(){
   document.getElementById("modal").style.display="none";
 }
+  /* =========================
+   RANDOM POSTER PULSE IDLE
+========================= */
+
+let idleTimer=null;
+let pulseLoop=null;
+const IDLE_DELAY=4000; // через 4 сек бездействия начинается режим
+const MIN_GAP=2200;    // минимальный интервал между пульсами
+const MAX_GAP=5200;    // максимальный
+
+function resetIdle(){
+  clearTimeout(idleTimer);
+  clearTimeout(pulseLoop);
+
+  idleTimer=setTimeout(startPulseLoop,IDLE_DELAY);
+}
+
+function startPulseLoop(){
+  pulseRandomPoster();
+}
+
+function pulseRandomPoster(){
+  const posters=[...document.querySelectorAll(".poster")];
+  if(!posters.length) return;
+
+  const randomPoster=posters[Math.floor(Math.random()*posters.length)];
+  randomPoster.classList.add("pulse");
+
+  setTimeout(()=>randomPoster.classList.remove("pulse"),1600);
+
+  const nextDelay=Math.random()*(MAX_GAP-MIN_GAP)+MIN_GAP;
+  pulseLoop=setTimeout(pulseRandomPoster,nextDelay);
+}
+
+/* сброс idle при активности */
+["click","touchstart","mousemove","keydown","scroll"].forEach(evt=>{
+  window.addEventListener(evt,resetIdle,{passive:true});
+});
+
+/* запуск */
+resetIdle();
 </script>
 
 </body>
