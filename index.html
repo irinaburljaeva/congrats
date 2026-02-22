@@ -32,15 +32,12 @@ h1{
 }
 
 .poster{
-  width:240px;
+  width:220px;
+  background:transparent;
+  border:none;
+  padding:0;
   cursor:pointer;
-  transition:.25s;
-
-  /* ТЕНЬ НА СТЕНЕ */
-  box-shadow:
-    0 25px 50px rgba(0,0,0,.55),
-    0 10px 20px rgba(0,0,0,.45),
-    0 3px 6px rgba(0,0,0,.35);
+  transition:.2s;
 }
 
 /* Тень как у плаката на стене */
@@ -60,12 +57,19 @@ h1{
   transform:translateY(-4px) scale(1.02);
 }
 
-/* Сам плакат */
 .poster img{
   width:100%;
   height:auto;
-  display:block;
+  object-fit:contain;
+
   filter:sepia(60%) contrast(110%);
+
+  /* тень как от плаката на стене */
+  box-shadow:
+    0 18px 25px rgba(0,0,0,.55),
+    0 35px 60px rgba(0,0,0,.45);
+
+  border-radius:2px;
 }
 /* Имя */
 .name{
