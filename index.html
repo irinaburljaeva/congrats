@@ -217,134 +217,256 @@ h1{
 }
   
 /* =========================
-   CINEMATIC SHERIFF MODE
+WILD WEST v2 — WANTED POSTER
+Тёмная, грязная, настоящая
 ========================= */
 
-/* сцена */
-.modal{
-  background:
-    radial-gradient(circle at 50% 25%,
-      rgba(255,200,120,.12),
-      rgba(0,0,0,.95) 55%);
-  backdrop-filter: blur(6px);
-  animation:fadeScene .4s ease;
+@import url(‘https://fonts.googleapis.com/css2?family=Rye&family=IM+Fell+English:ital@0;1&display=swap’);
+
+/* ── МОДАЛЬНЫЙ ФОН ── */
+.modal {
+background: radial-gradient(
+ellipse at 50% 100%,
+rgba(120, 60, 10, .18),
+rgba(10, 6, 2, .96) 55%
+);
+backdrop-filter: blur(3px);
 }
 
-@keyframes fadeScene{
-  from{opacity:0}
-  to{opacity:1}
+/* ── КАРТОЧКА: состаренный пергамент ── */
+.card {
+background:
+radial-gradient(ellipse at 15% 10%,  rgba(80,40,0,.25)  0%, transparent 40%),
+radial-gradient(ellipse at 85% 90%,  rgba(60,30,0,.20)  0%, transparent 35%),
+radial-gradient(ellipse at 70% 20%,  rgba(0,0,0,.15)    0%, transparent 30%),
+linear-gradient(175deg, #d4b483 0%, #c8a265 30%, #ba9055 60%, #c4a06a 100%);
+
+border-radius: 3px;
+padding: 52px 24px 32px;
+
+outline: 3px solid #6b3f10;
+outline-offset: 6px;
+box-shadow:
+0 0 0 9px #5a3008,
+0 0 0 12px #7a4a18,
+0 0 0 14px #3a1a00,
+inset 0 0 60px rgba(50,20,0,.35),
+0 30px 80px rgba(0,0,0,.85);
+
+position: relative;
+overflow: visible;
 }
 
-/* досье */
-.card{
-  background:
-    linear-gradient(#e6d2a4,#d7bf8c);
-  border-radius:0;
-  transform:rotate(-0.6deg) scale(.95);
-  animation:dropFile .35s ease forwards;
-  box-shadow:
-    0 40px 80px rgba(0,0,0,.7),
-    inset 0 0 60px rgba(0,0,0,.3);
-  border:1px solid rgba(0,0,0,.35);
-  padding:60px 24px 30px;
-  position:relative;
+/* Горизонтальные полосы — старая бумага */
+.card::before {
+content: ‘’;
+position: absolute;
+inset: 0;
+border-radius: 3px;
+background: repeating-linear-gradient(
+0deg,
+transparent 0px,
+transparent 3px,
+rgba(0,0,0,.04) 3px,
+rgba(0,0,0,.04) 4px
+);
+pointer-events: none;
+z-index: 0;
 }
 
-@keyframes dropFile{
-  from{
-    transform:translateY(-40px) rotate(-1deg) scale(.9);
-    opacity:0;
-  }
-  to{
-    transform:translateY(0) rotate(-0.6deg) scale(1);
-    opacity:1;
-  }
+/* Виньетка по краям */
+.card::after {
+content: ‘’;
+position: absolute;
+inset: 0;
+border-radius: 3px;
+background: radial-gradient(
+ellipse at 50% 50%,
+transparent 35%,
+rgba(40,15,0,.3) 100%
+);
+pointer-events: none;
+z-index: 0;
 }
 
-/* лампа сверху */
-.card::before{
-  content:"";
-  position:absolute;
-  top:-40px;
-  left:50%;
-  transform:translateX(-50%);
-  width:200px;
-  height:120px;
-  background:radial-gradient(circle,
-    rgba(255,220,150,.35),
-    transparent 70%);
-  pointer-events:none;
+.card > * { position: relative; z-index: 1; }
+
+/* ── ШТАМП «КОНФИДЕНЦИАЛЬНО» ── */
+.classified {
+position: absolute;
+top: 16px;
+left: 50%;
+transform: translateX(-50%) rotate(-7deg);
+white-space: nowrap;
+
+font-family: ‘Rye’, serif;
+font-size: 10px;
+letter-spacing: 4px;
+color: #7a0000;
+
+border: 2.5px solid #7a0000;
+padding: 4px 16px 5px;
+
+/* второй контур — как реальная печать */
+box-shadow:
+0 0 0 4px rgba(122,0,0,.15),
+2px 2px 6px rgba(0,0,0,.25);
+
+opacity: .85;
+background: rgba(200,30,30,.06);
+text-shadow: 0 0 2px rgba(122,0,0,.4);
 }
 
-/* печать */
-.classified{
-  font-size:13px;
-  letter-spacing:3px;
-  padding:6px 14px;
-  border:2px solid #7a0000;
-  color:#7a0000;
-  background:rgba(122,0,0,.05);
-  transform:rotate(-14deg);
-  box-shadow:0 0 10px rgba(122,0,0,.3);
+/* ── ЗАГОЛОВОК ── */
+.access-title {
+font-family: ‘Rye’, serif;
+font-size: 25px;
+color: #1a0800;
+text-align: center;
+letter-spacing: 1.5px;
+line-height: 1.2;
+margin-bottom: 6px;
+text-shadow: 1px 1px 0 rgba(255,200,100,.2);
 }
 
-/* заголовок */
-.access-title{
-  font-size:30px;
-  letter-spacing:1px;
-  margin-bottom:6px;
+.access-sub {
+font-family: ‘IM Fell English’, serif;
+font-style: italic;
+font-size: 12px;
+color: #3a1c00;
+letter-spacing: 2px;
+opacity: .75;
+margin-bottom: 22px;
+text-align: center;
 }
 
-/* PIN — как металлические ячейки */
-.pin-wrap{
-  background:transparent;
-  box-shadow:none;
-  padding:0;
+/* ── PIN WRAP ── */
+.pin-wrap {
+background: transparent;
+box-shadow: none;
+padding: 0;
+margin-bottom: 20px;
 }
 
-.digit{
-  width:60px;
-  height:70px;
-  border-radius:4px;
-  border:2px solid #8a6a3c;
-  background:
-    linear-gradient(#f3e1b6,#d7bf8c);
-  box-shadow:
-    inset 0 3px 6px rgba(0,0,0,.35),
-    0 6px 12px rgba(0,0,0,.35);
-  transition:.2s;
+/* ── ЯЧЕЙКИ PIN: тёмное дерево ── */
+.digit {
+width: 58px;
+height: 62px;
+border-radius: 2px;
+border: none;
+background-image:
+repeating-linear-gradient(
+88deg,
+transparent 0px, transparent 5px,
+rgba(0,0,0,.07) 5px, rgba(0,0,0,.07) 6px
+),
+linear-gradient(160deg, #2a1505 0%, #3d1f08 40%, #2e1606 100%);
+
+box-shadow:
+inset 0 1px 3px rgba(255,180,80,.08),
+inset 0 -2px 4px rgba(0,0,0,.5),
+0 4px 12px rgba(0,0,0,.55),
+0 1px 0 rgba(255,150,50,.06);
+
+color: #c8a050;
+font-family: ‘Rye’, serif;
+font-size: 20px;
+transition: .18s ease;
 }
 
-.digit:focus{
-  transform:scale(1.08);
-  box-shadow:
-    0 0 0 2px rgba(255,210,120,.4),
-    0 0 20px rgba(255,210,120,.4),
-    inset 0 3px 6px rgba(0,0,0,.35);
+.digit:focus {
+outline: none;
+box-shadow:
+inset 0 1px 3px rgba(255,180,80,.1),
+inset 0 -2px 4px rgba(0,0,0,.5),
+0 0 0 2px #b8760a,
+0 0 14px rgba(184,118,10,.4),
+0 6px 20px rgba(0,0,0,.6);
+color: #f0c060;
+transform: translateY(-2px);
 }
 
-/* кнопка — как латунная пластина */
-.open-btn{
-  border-radius:0;
-  background:
-    linear-gradient(#caa96b,#8e6b3c);
-  border:1px solid rgba(0,0,0,.4);
-  letter-spacing:1px;
-  box-shadow:
-    inset 0 2px 0 rgba(255,255,255,.3),
-    0 10px 24px rgba(0,0,0,.5);
-  transition:.2s;
+/* ── КНОПКА ── */
+.open-btn {
+display: block;
+width: 100%;
+border-radius: 2px;
+border: none;
+cursor: pointer;
+
+background-image:
+repeating-linear-gradient(
+90deg,
+transparent 0px, transparent 7px,
+rgba(0,0,0,.09) 7px, rgba(0,0,0,.09) 8px
+),
+linear-gradient(180deg, #3a1a05 0%, #2a1003 50%, #1e0c02 100%);
+
+padding: 14px 28px;
+font-family: ‘Rye’, serif;
+font-size: 13px;
+letter-spacing: 3px;
+color: #c09040;
+text-shadow: 0 1px 4px rgba(0,0,0,.8);
+text-transform: uppercase;
+
+box-shadow:
+0 0 0 2px #1a0800,
+0 0 0 5px #7a4a10,
+0 0 0 7px #1a0800,
+0 8px 24px rgba(0,0,0,.6);
+
+position: relative;
+transition: .2s ease;
 }
 
-.open-btn:hover{
-  transform:translateY(-2px);
+.open-btn::before { content: ‘✦’; position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #8b6020; font-size: 11px; }
+.open-btn::after  { content: ‘✦’; position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: #8b6020; font-size: 11px; }
+
+.open-btn:hover {
+transform: translateY(-1px);
+color: #d8aa50;
+box-shadow:
+0 0 0 2px #1a0800,
+0 0 0 5px #9a6020,
+0 0 0 7px #1a0800,
+0 12px 32px rgba(0,0,0,.7);
 }
 
-/* подсказка — тихая */
-.access-hint{
-  font-size:11px;
-  letter-spacing:3px;
-  opacity:.45;
+.open-btn:active {
+transform: translateY(1px);
+box-shadow:
+0 0 0 2px #1a0800,
+0 0 0 5px #7a4a10,
+0 0 0 7px #1a0800,
+0 2px 8px rgba(0,0,0,.6),
+inset 0 3px 8px rgba(0,0,0,.4);
+}
+
+/* ── ПОДПИСЬ ── */
+.access-hint {
+margin-top: 14px;
+font-family: ‘IM Fell English’, serif;
+font-style: italic;
+font-size: 11px;
+color: #3a1c00;
+opacity: .6;
+text-align: center;
+letter-spacing: 0.5px;
+}
+
+/* ── ЗВЕЗДА ШЕРИФА ── */
+.stamp {
+position: absolute;
+top: 14px;
+right: 18px;
+font-size: 22px;
+border: none;
+background: none;
+color: #7a5010;
+filter:
+drop-shadow(0 1px 2px rgba(0,0,0,.6))
+drop-shadow(0 0 6px rgba(180,130,30,.25));
 }
 
 /* shake если код неверный */
