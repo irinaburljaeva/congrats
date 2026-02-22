@@ -31,27 +31,40 @@ h1{
   padding:40px 20px;
 }
 
-/* Сам постер */
 .poster{
-  width:260px;
+  width:240px;
+  background:transparent;
+  border:none;
+  padding:0;
   cursor:pointer;
-  transition:0.25s ease;
-  text-align:center;
+  transition:.25s;
+  position:relative;
 }
 
+/* Тень как у плаката на стене */
+.poster::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  box-shadow:
+    0 30px 40px rgba(0,0,0,.55),
+    0 10px 15px rgba(0,0,0,.35);
+  z-index:-1;
+  border-radius:6px;
+}
+
+/* Лёгкий hover */
 .poster:hover{
-  transform:scale(1.08);
+  transform:translateY(-4px) scale(1.02);
 }
 
-/* Само изображение — без рамок и блоков */
+/* Сам плакат */
 .poster img{
   width:100%;
   height:auto;
   display:block;
-  filter:sepia(70%) contrast(115%) brightness(95%);
-  box-shadow:0 20px 40px rgba(0,0,0,0.6);
+  filter:sepia(60%) contrast(110%);
 }
-
 /* Имя */
 .name{
   margin-top:14px;
