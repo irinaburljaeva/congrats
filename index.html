@@ -199,13 +199,101 @@ h1{
   border:2px solid #b89a6c;
   background:#efe0bf;
 }
+
+  /* ===================== */
+/* WOW PIN SCREEN        */
+/* ===================== */
+
+.access-screen{
+  text-align:center;
+  animation:fadeIn .35s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(8px)}
+  to{opacity:1; transform:none}
+}
+
+.access-title{
+  font-family:"Playfair Display", serif;
+  font-size:26px;
+  margin-bottom:18px;
+  letter-spacing:.5px;
+}
+
+.pin{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  margin:18px 0 14px;
+}
+
+.digit{
+  width:54px;
+  height:64px;
+  font-size:26px;
+  text-align:center;
+  border:2px solid #b89a6c;
+  background:#f1e3c6;
+  border-radius:6px;
+  transition:.18s;
+  box-shadow:0 4px 10px rgba(0,0,0,.15);
+}
+
+.digit:focus{
+  outline:none;
+  border-color:#8b6a3f;
+  box-shadow:
+    0 0 0 2px rgba(184,154,108,.3),
+    0 0 12px rgba(184,154,108,.35);
+  transform:translateY(-1px);
+}
+
+/* shake если код неверный */
+.shake{
+  animation:shake .35s;
+}
+@keyframes shake{
+  0%,100%{transform:translateX(0)}
+  25%{transform:translateX(-6px)}
+  50%{transform:translateX(6px)}
+  75%{transform:translateX(-4px)}
+}
+
+.open-btn{
+  margin-top:8px;
+  padding:10px 22px;
+  border:none;
+  border-radius:20px;
+  background:linear-gradient(180deg,#c9b18a,#a88a5c);
+  color:#fff;
+  font-weight:600;
+  letter-spacing:.3px;
+  cursor:pointer;
+  box-shadow:0 6px 14px rgba(0,0,0,.25);
+  transition:.18s;
+}
+
+.open-btn:hover{
+  transform:translateY(-1px);
+  box-shadow:0 8px 18px rgba(0,0,0,.3);
+}
+
+.access-hint{
+  margin-top:10px;
+  font-size:13px;
+  opacity:.65;
+  letter-spacing:.5px;
+}
 </style>
 </head>
 
 <body>
 
 <h1>В этот 23 февраля разыскиваются</h1>
-
+<div class="hint">
+Если дело заведено на вас — немедленно откройте его, нажав на свой постер.
+</div>
 <div class="grid">
 <div class="poster" onclick="openCase('4821')"><img src="IMG_4993.png"><div class="name">Дима</div></div>
 <div class="poster" onclick="openCase('7593')"><img src="IMG_4984.png"><div class="name">Ярослав</div></div>
