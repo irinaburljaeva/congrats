@@ -100,13 +100,14 @@ body::before {
 
 /* ── КАРТОЧКА ── */
 .card {
-  /* текстура бумаги + виньетки поверх */
   background-image:
-    radial-gradient(ellipse at 15% 10%, rgba(60,25,0,.4) 0%, transparent 45%),
-    radial-gradient(ellipse at 85% 90%, rgba(40,15,0,.35) 0%, transparent 40%),
+    /* кремовый оверлей — гасит пёстрость текстуры */
+    linear-gradient(rgba(235, 215, 175, 0.72), rgba(220, 195, 150, 0.72)),
     url('00FCF7F2-9EA6-42D7-B227-EA190B815828.png');
-  background-size: auto, auto, cover;
-  background-position: center, center, center;
+  background-size: auto, cover;
+  background-position: center, center;
+}
+
 
   border-radius: 3px;
   padding: 52px 24px 32px;
@@ -404,6 +405,7 @@ body::before {
 .congrats {
   font-family: Montserrat, sans-serif;
   font-size: 14px;
+  text-shadow: 0 1px 2px rgba(255,245,220,.6);
   line-height: 1.8;
   color: #1a0800;
   text-align: left;
