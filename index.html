@@ -482,7 +482,8 @@ function unlock(){
   box.classList.add("shake");
   setTimeout(()=>box.classList.remove("shake"),350);
   return;
-    document.getElementById("stampSound").currentTime=0;
+    
+document.getElementById("stampSound").currentTime=0;
 document.getElementById("stampSound").play().catch(()=>{});
 }
 
