@@ -98,29 +98,21 @@ body::before {
   box-sizing: border-box;
 }
 
-/* ── КАРТОЧКА ── */
 .card {
   background-image:
-    /* кремовый оверлей — гасит пёстрость текстуры */
     linear-gradient(rgba(235, 215, 175, 0.72), rgba(220, 195, 150, 0.72)),
     url('00FCF7F2-9EA6-42D7-B227-EA190B815828.png');
   background-size: auto, cover;
   background-position: center, center;
-}
-
-
   border-radius: 3px;
   padding: 52px 24px 32px;
   max-width: 480px;
   width: 100%;
   box-sizing: border-box;
-
-  /* скролл внутри карточки */
   max-height: 85vh;
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-
   outline: 3px solid #6b3f10;
   outline-offset: 6px;
   box-shadow:
@@ -129,11 +121,10 @@ body::before {
     0 0 0 14px #3a1a00,
     inset 0 0 60px rgba(50,20,0,.35),
     0 30px 80px rgba(0,0,0,.85);
-
   position: relative;
 }
 
-/* Горизонтальные полосы поверх текстуры */
+/* Горизонтальные полосы */
 .card::before {
   content: '';
   position: absolute;
@@ -433,12 +424,12 @@ body::before {
 
 .pdf-preview iframe {
   width: 100%;
-  height: 240px;
+  height: 180px; 
   border: none;
   pointer-events: none;
 }
 
-/* ── FULLSCREEN PDF ── */
+
 .pdf-full {
   position: fixed;
   inset: 0;
@@ -447,14 +438,19 @@ body::before {
   justify-content: center;
   align-items: center;
   z-index: 3000;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .pdf-full iframe {
-  width: 96%;
-  height: 96%;
+  width: 100%;
+  max-width: 500px;
+  height: 90vh;
   border: none;
   background: #fff;
+  border-radius: 4px;
 }
+
 
 .pdf-close {
   position: absolute;
