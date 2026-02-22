@@ -7,19 +7,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-body{
+html,body{
   margin:0;
+  padding:0;
   background:#2b241c;
   font-family:Montserrat, sans-serif;
-  color:#2b1e12;
+  color:#f1e3c6;
   text-align:center;
 }
 
 /* Заголовок */
 h1{
   font-family:"Playfair Display", serif;
-  margin:40px 10px 5px;
-  color:#f1e3c6;
+  margin:40px 10px 20px;
   font-size:32px;
 }
 
@@ -40,25 +40,16 @@ h1{
   cursor:pointer;
   box-shadow:0 8px 20px rgba(0,0,0,.4);
   transition:.2s;
-  position:relative;
 }
 
-.poster:hover{ transform:scale(1.05); }
-
-/* Один WANTED через CSS */
-.poster::before{
-  content:"WANTED";
-  display:block;
-  font-family:"Playfair Display", serif;
-  font-weight:800;
-  font-size:24px;
-  margin-bottom:8px;
+.poster:hover{
+  transform:scale(1.05);
 }
 
 /* Фото */
 .poster img{
   width:100%;
-  height:200px;
+  height:220px;
   object-fit:contain;
   background:#efe0bf;
   padding:6px;
@@ -68,6 +59,7 @@ h1{
 .name{
   font-weight:600;
   margin-top:8px;
+  color:#2b1e12;
 }
 
 /* Модалка */
@@ -75,10 +67,10 @@ h1{
   display:none;
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.8);
-  align-items:center;
+  background:rgba(0,0,0,.85);
   justify-content:center;
-  padding:20px;
+  align-items:center;
+  z-index:1000;
 }
 
 .card{
@@ -86,9 +78,10 @@ h1{
   padding:25px;
   border-radius:6px;
   max-width:420px;
-  width:100%;
+  width:90%;
   text-align:left;
   box-shadow:0 10px 30px rgba(0,0,0,.5);
+  color:#2b1e12;
 }
 
 input{
@@ -220,41 +213,40 @@ button{
 </div>
 
 <script>
-
 const people={
 "4821":{
 name:"Дима",
-text:"Разыскивается за надёжность и спокойную силу характера.",
-gift:"🎁 Разыскивается для вручения подарочного сертификата"
+text:"Разыскивается за надёжность и силу характера.",
+gift:"🎁 Для вручения подарочного сертификата"
 },
 "7593":{
 name:"Ярослав",
-text:"Разыскивается за энергию и драйв, который двигает команду вперёд.",
-gift:"🎁 Разыскивается для вручения подарка"
+text:"Разыскивается за энергию и драйв.",
+gift:"🎁 Для вручения подарка"
 },
 "1938":{
 name:"Егор",
-text:"Разыскивается за системность и стабильность.",
+text:"Разыскивается за стабильность и системность.",
 gift:""
 },
 "4488":{
 name:"Женя",
-text:"Разыскивается за надёжность и поддержку.",
+text:"Разыскивается за поддержку и ответственность.",
 gift:""
 },
 "9087":{
 name:"Никита",
-text:"Разыскивается за харизму и атмосферу.",
+text:"Разыскивается за харизму.",
 gift:""
 },
 "6651":{
 name:"Тамерлан",
-text:"Разыскивается за силу характера и уверенность.",
+text:"Разыскивается за уверенность.",
 gift:""
 },
 "3344":{
 name:"Дима",
-text:"Разыскивается за ответственность и доведение до результата.",
+text:"Разыскивается за доведение до результата.",
 gift:""
 }
 };
@@ -278,7 +270,6 @@ function openCase(code){
 
   const inputs=document.querySelectorAll(".digit");
   inputs[0].focus();
-
   inputs.forEach((input,i)=>{
     input.addEventListener("input",()=>{
       if(input.value && inputs[i+1]) inputs[i+1].focus();
@@ -292,11 +283,11 @@ function unlock(){
   digits.forEach(d=>val+=d.value);
 
   if(val!==currentCode){
-    document.querySelector(".scanner").innerText="ACCESS DENIED";
+    document.querySelector(".scanner").innerText="КОД НЕ ПРИНЯТ";
     return;
   }
 
-  document.querySelector(".scanner").innerText="ACCESS GRANTED";
+  document.querySelector(".scanner").innerText="ДОСТУП РАЗРЕШЁН";
 
   setTimeout(()=>{
     const p=people[currentCode];
