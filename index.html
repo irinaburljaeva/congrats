@@ -22,10 +22,6 @@ h1{
   color:#f1e3c6;
   font-size:32px;
 }
-.subtitle{
-  color:#d6c5a3;
-  margin-bottom:25px;
-}
 
 /* Постеры */
 .grid{
@@ -37,33 +33,41 @@ h1{
 }
 
 .poster{
-  width:180px;
+  width:200px;
   background:#f4e6c8;
   border:3px solid #d2b48c;
-  padding:10px;
+  padding:14px;
   cursor:pointer;
   box-shadow:0 8px 20px rgba(0,0,0,.4);
   transition:.2s;
+  position:relative;
 }
+
 .poster:hover{ transform:scale(1.05); }
 
-.poster img{
-  width:100%;
-  height:180px;
-  object-fit:cover;
-  filter:sepia(60%) contrast(110%);
-}
-
-.wanted{
+/* Один WANTED через CSS */
+.poster::before{
+  content:"WANTED";
+  display:block;
   font-family:"Playfair Display", serif;
   font-weight:800;
-  font-size:22px;
-  margin:6px 0;
+  font-size:24px;
+  margin-bottom:8px;
+}
+
+/* Фото */
+.poster img{
+  width:100%;
+  height:200px;
+  object-fit:contain;
+  background:#efe0bf;
+  padding:6px;
+  filter:sepia(60%) contrast(110%);
 }
 
 .name{
   font-weight:600;
-  margin-bottom:4px;
+  margin-top:8px;
 }
 
 /* Модалка */
@@ -124,6 +128,7 @@ button{
   font-size:22px;
   cursor:pointer;
 }
+
 /* SCANNER */
 .scanner{
   font-family:monospace;
@@ -163,55 +168,46 @@ button{
   border-color:#8b6a3f;
   box-shadow:0 0 8px rgba(0,0,0,.3);
 }
-  
 </style>
 </head>
 
 <body>
 
 <h1>В этот 23 февраля разыскиваются</h1>
-<div class="subtitle"></div>
 
 <div class="grid">
 
 <div class="poster" onclick="openCase('4821')">
-  <div class="wanted">WANTED</div>
   <img src="dima.jpg">
   <div class="name">Дима</div>
 </div>
 
 <div class="poster" onclick="openCase('7593')">
-  <div class="wanted">WANTED</div>
   <img src="IMG_4984.png">
   <div class="name">Ярослав</div>
 </div>
 
 <div class="poster" onclick="openCase('1938')">
-  <div class="wanted">WANTED</div>
   <img src="egor.jpg">
   <div class="name">Егор</div>
 </div>
 
 <div class="poster" onclick="openCase('4488')">
-  <div class="wanted">WANTED</div>
   <img src="IMG_4983.png">
   <div class="name">Женя</div>
 </div>
 
 <div class="poster" onclick="openCase('3344')">
-  <div class="wanted">WANTED</div>
   <img src="IMG_4982.png">
   <div class="name">Дима</div>
 </div>
 
 <div class="poster" onclick="openCase('9087')">
-  <div class="wanted">WANTED</div>
   <img src="IMG_4981.png">
   <div class="name">Никита</div>
 </div>
 
 <div class="poster" onclick="openCase('6651')">
-  <div class="wanted">WANTED</div>
   <img src="IMG_4980.png">
   <div class="name">Тамерлан</div>
 </div>
@@ -228,27 +224,27 @@ button{
 const people={
 "4821":{
 name:"Дима",
-text:"Разыскивается за надёжность, спокойствие и силу характера. Команда ценит тебя и разыскивает для торжественного поздравления.",
+text:"Разыскивается за надёжность и спокойную силу характера.",
 gift:"🎁 Разыскивается для вручения подарочного сертификата"
 },
 "7593":{
 name:"Ярослав",
-text:"Разыскивается за энергию, драйв и позитив, который двигает команду вперёд.",
+text:"Разыскивается за энергию и драйв, который двигает команду вперёд.",
 gift:"🎁 Разыскивается для вручения подарка"
 },
 "1938":{
 name:"Егор",
-text:"Разыскивается за системность и стабильность, на которых держится порядок.",
+text:"Разыскивается за системность и стабильность.",
 gift:""
 },
 "4488":{
 name:"Женя",
-text:"Разыскивается за надёжность и готовность всегда поддержать.",
+text:"Разыскивается за надёжность и поддержку.",
 gift:""
 },
 "9087":{
 name:"Никита",
-text:"Разыскивается за харизму и атмосферу, которую ты создаёшь.",
+text:"Разыскивается за харизму и атмосферу.",
 gift:""
 },
 "6651":{
@@ -256,9 +252,9 @@ name:"Тамерлан",
 text:"Разыскивается за силу характера и уверенность.",
 gift:""
 },
-  "3344":{
+"3344":{
 name:"Дима",
-text:"Разыскивается за .",
+text:"Разыскивается за ответственность и доведение до результата.",
 gift:""
 }
 };
@@ -269,17 +265,14 @@ function openCase(code){
   currentCode=code;
   document.getElementById("modal").style.display="flex";
   document.getElementById("content").innerHTML=`
-
-    <h2 style="text-align:center">ВВЕДИТЕ СЕКРЕТНЫЙ КОД РАЗЫСКИВАЕМОГО</h2>
+    <h2 style="text-align:center">Введите секретный код</h2>
     <div class="scanner">ПОДТВЕРЖДАЕМ ЛИЧНОСТЬ...</div>
-
     <div class="pin">
       <input maxlength="1" class="digit">
       <input maxlength="1" class="digit">
       <input maxlength="1" class="digit">
       <input maxlength="1" class="digit">
     </div>
-
     <button onclick="unlock()">Открыть дело</button>
   `;
 
@@ -318,7 +311,6 @@ function unlock(){
 function closeModal(){
   document.getElementById("modal").style.display="none";
 }
-
 </script>
 
 </body>
