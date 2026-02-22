@@ -1,42 +1,43 @@
 <!DOCTYPE html>
+
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Разыскиваются — 23 февраля</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Montserrat:wght@400;600&family=Rye&display=swap" rel="stylesheet">
 
 <style>
 html, body {
-margin: 0;
-padding: 0;
-background: #2b241c;
-font-family: Montserrat, sans-serif;
-color: #f1e3c6;
-text-align: center;
+  margin: 0;
+  padding: 0;
+  background: #2b241c;
+  font-family: Montserrat, sans-serif;
+  color: #f1e3c6;
+  text-align: center;
 }
 
 h1 {
-font-family: “Playfair Display”, serif;
-margin: 40px 10px 20px;
-font-size: 32px;
+  font-family: "Playfair Display", serif;
+  margin: 40px 10px 20px;
+  font-size: 32px;
 }
 
 .grid {
-display: flex;
-flex-wrap: wrap;
-justify-content: center;
-gap: 40px;
-padding: 40px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  padding: 40px 20px;
 }
 
 .poster {
-width: 220px;
-cursor: pointer;
-transition: .25s;
-opacity: 0;
-transform: translateY(18px);
-animation: fadeUp .6s ease forwards;
+  width: 220px;
+  cursor: pointer;
+  transition: .25s;
+  opacity: 0;
+  transform: translateY(18px);
+  animation: fadeUp .6s ease forwards;
 }
 
 .poster:nth-child(2) { animation-delay: .05s }
@@ -47,700 +48,631 @@ animation: fadeUp .6s ease forwards;
 .poster:nth-child(7) { animation-delay: .3s }
 
 @keyframes fadeUp {
-to { opacity: 1; transform: none }
+  to { opacity: 1; transform: none }
 }
 
 .poster:hover { transform: translateY(-4px) scale(1.02); }
 
 .poster img {
-width: 100%;
-display: block;
-filter:
-sepia(60%)
-contrast(110%)
-drop-shadow(0 20px 25px rgba(0,0,0,.6))
-drop-shadow(0 40px 60px rgba(0,0,0,.4));
+  width: 100%;
+  display: block;
+  filter:
+    sepia(60%)
+    contrast(110%)
+    drop-shadow(0 20px 25px rgba(0,0,0,.6))
+    drop-shadow(0 40px 60px rgba(0,0,0,.4));
 }
 
 .name {
-margin-top: 14px;
-font-size: 20px;
-font-weight: 600;
+  margin-top: 14px;
+  font-size: 20px;
+  font-weight: 600;
 }
 
-/* ── ФОНОВАЯ ТЕКСТУРА ── */
+/* ── ФОНОВАЯ ТЕКСТУРА САЙТА ── */
 body::before {
-content: “”;
-position: fixed;
-inset: 0;
-background: url(“https://www.transparenttextures.com/patterns/old-paper.png”);
-opacity: .25;
-pointer-events: none;
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url("https://www.transparenttextures.com/patterns/old-paper.png");
+  opacity: .25;
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* ── МОДАЛЬНЫЙ ФОН ── */
 .modal {
-display: none;
-position: fixed;
-inset: 0;
-align-items: center;
-justify-content: center;
-padding: 20px;
-z-index: 1000;
-background: radial-gradient(
-ellipse at 50% 100%,
-rgba(120, 60, 10, .18),
-rgba(10, 6, 2, .96) 55%
-);
-backdrop-filter: blur(3px);
-box-sizing: border-box;
+  display: none;
+  position: fixed;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1000;
+  background: radial-gradient(
+    ellipse at 50% 100%,
+    rgba(120, 60, 10, .18),
+    rgba(10, 6, 2, .96) 55%
+  );
+  backdrop-filter: blur(3px);
+  box-sizing: border-box;
 }
 
 /* ── КАРТОЧКА ── */
 .card {
+  /* текстура бумаги + виньетки поверх */
   background-image:
-    radial-gradient(ellipse at 15% 10%, rgba(80,40,0,.25) 0%, transparent 40%),
-    radial-gradient(ellipse at 85% 90%, rgba(60,30,0,.20) 0%, transparent 35%),
+    radial-gradient(ellipse at 15% 10%, rgba(60,25,0,.4) 0%, transparent 45%),
+    radial-gradient(ellipse at 85% 90%, rgba(40,15,0,.35) 0%, transparent 40%),
     url('00FCF7F2-9EA6-42D7-B227-EA190B815828.png');
   background-size: auto, auto, cover;
-  /* background-blend-mode убираем полностью */
+  background-position: center, center, center;
+
+  border-radius: 3px;
+  padding: 52px 24px 32px;
+  max-width: 480px;
+  width: 100%;
+  box-sizing: border-box;
+
+  /* скролл внутри карточки */
+  max-height: 85vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+
+  outline: 3px solid #6b3f10;
+  outline-offset: 6px;
+  box-shadow:
+    0 0 0 9px #5a3008,
+    0 0 0 12px #7a4a18,
+    0 0 0 14px #3a1a00,
+    inset 0 0 60px rgba(50,20,0,.35),
+    0 30px 80px rgba(0,0,0,.85);
+
+  position: relative;
 }
 
-
-border-radius: 3px; 
-padding: 52px 24px 32px;
-max-width: 520px;
-width: 100%;
-box-sizing: border-box;
-
-/* скролл внутри карточки */
-max-height: 85vh;
-overflow-y: auto;
--webkit-overflow-scrolling: touch;
-
-outline: 3px solid #6b3f10;
-outline-offset: 6px;
-box-shadow:
-0 0 0 9px #5a3008,
-0 0 0 12px #7a4a18,
-0 0 0 14px #3a1a00,
-inset 0 0 60px rgba(50,20,0,.35),
-0 30px 80px rgba(0,0,0,.85);
-
-position: relative;
-overflow-x: hidden;
-}
-
-/* Горизонтальные полосы — старая бумага */
+/* Горизонтальные полосы поверх текстуры */
 .card::before {
-content: ‘’;
-position: absolute;
-inset: 0;
-border-radius: 3px;
-background: repeating-linear-gradient(
-0deg,
-transparent 0px,
-transparent 3px,
-rgba(0,0,0,.04) 3px,
-rgba(0,0,0,.04) 4px
-);
-pointer-events: none;
-z-index: 0;
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 3px;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 3px,
+    rgba(0,0,0,.03) 3px,
+    rgba(0,0,0,.03) 4px
+  );
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* Виньетка по краям */
 .card::after {
-content: ‘’;
-position: absolute;
-inset: 0;
-border-radius: 3px;
-background: radial-gradient(
-ellipse at 50% 50%,
-transparent 35%,
-rgba(40,15,0,.3) 100%
-);
-pointer-events: none;
-z-index: 0;
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 3px;
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    transparent 30%,
+    rgba(30,10,0,.45) 100%
+  );
+  pointer-events: none;
+  z-index: 0;
 }
 
 .card > * { position: relative; z-index: 1; }
 
 /* ── КНОПКА ЗАКРЫТИЯ ── */
 .close {
-position: fixed;
-top: 14px;
-right: 18px;
-color: white;
-font-size: 26px;
-cursor: pointer;
-z-index: 1001;
+  position: fixed;
+  top: 14px;
+  right: 18px;
+  color: white;
+  font-size: 26px;
+  cursor: pointer;
+  z-index: 1001;
 }
 
 /* ── ШТАМП «КОНФИДЕНЦИАЛЬНО» ── */
 .classified {
-position: absolute;
-top: 16px;
-left: 14px;
-transform: rotate(-7deg);
-white-space: nowrap;
-font-family: ‘Rye’, serif;
-font-size: 10px;
-letter-spacing: 4px;
-color: #7a0000;
-border: 2.5px solid #7a0000;
-padding: 4px 16px 5px;
-box-shadow:
-0 0 0 4px rgba(122,0,0,.15),
-2px 2px 6px rgba(0,0,0,.25);
-opacity: .85;
-background: rgba(200,30,30,.06);
-text-shadow: 0 0 2px rgba(122,0,0,.4);
+  position: absolute;
+  top: 16px;
+  left: 14px;
+  transform: rotate(-7deg);
+  white-space: nowrap;
+  font-family: 'Rye', serif;
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: #7a0000;
+  border: 2.5px solid #7a0000;
+  padding: 4px 16px 5px;
+  box-shadow:
+    0 0 0 4px rgba(122,0,0,.15),
+    2px 2px 6px rgba(0,0,0,.25);
+  opacity: .9;
+  background: rgba(255,255,255,.15);
+  text-shadow: 0 0 2px rgba(122,0,0,.4);
 }
 
 /* ── ШТАМП «ДОСТУП ПРЕДОСТАВЛЕН» ── */
 .stamp {
-position: absolute;
-top: 18px;
-right: 20px;
-font-family: ‘Rye’, serif;
-font-weight: 700;
-letter-spacing: 2px;
-font-size: 13px;
-color: #7a0000;
-border: 2.5px solid #7a0000;
-padding: 5px 10px;
-transform: rotate(-12deg) scale(0.6);
-opacity: 0;
-background: rgba(200,30,30,.06);
-box-shadow: 0 0 0 4px rgba(122,0,0,.15);
-white-space: nowrap;
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  font-family: 'Rye', serif;
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-size: 11px;
+  color: #7a0000;
+  border: 2.5px solid #7a0000;
+  padding: 5px 10px;
+  transform: rotate(-12deg) scale(0.6);
+  opacity: 0;
+  background: rgba(255,255,255,.15);
+  box-shadow: 0 0 0 4px rgba(122,0,0,.15);
+  white-space: nowrap;
 }
 
 .stamp.show {
-animation: stampImpact .45s ease forwards;
+  animation: stampImpact .45s ease forwards;
 }
 
 @keyframes stampImpact {
-0%   { transform: scale(3) rotate(-12deg); opacity: 0; }
-50%  { transform: scale(.9) rotate(-12deg); opacity: 1; }
-70%  { transform: scale(1.05) rotate(-12deg); }
-100% { transform: scale(1) rotate(-12deg); opacity: 1; }
+  0%   { transform: scale(3) rotate(-12deg); opacity: 0; }
+  50%  { transform: scale(.9) rotate(-12deg); opacity: 1; }
+  70%  { transform: scale(1.05) rotate(-12deg); }
+  100% { transform: scale(1) rotate(-12deg); opacity: 1; }
 }
 
-/* ── ЗАГОЛОВОК ── */
+/* ── ЗАГОЛОВОК МОДАЛА ── */
 .access-title {
-font-family: ‘Playfair Display’, serif;
-font-size: 25px;
-color: #1a0800;
-text-align: center;
-letter-spacing: 1.5px;
-line-height: 1.2;
-margin-bottom: 6px;
-text-shadow: 1px 1px 0 rgba(255,200,100,.2);
+  font-family: "Playfair Display", serif;
+  font-weight: 800;
+  font-size: 26px;
+  color: #1a0800;
+  text-align: center;
+  line-height: 1.2;
+  margin-bottom: 6px;
+  text-shadow: 1px 1px 0 rgba(255,200,100,.2);
 }
 
 .access-sub {
-font-family: ‘Montserrat’, serif;
-font-style: italic;
-font-size: 12px;
-color: #3a1c00;
-letter-spacing: 2px;
-opacity: .75;
-margin-bottom: 22px;
-text-align: center;
+  font-family: Montserrat, sans-serif;
+  font-size: 11px;
+  color: #3a1c00;
+  letter-spacing: 2px;
+  opacity: .75;
+  margin-bottom: 22px;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 /* ── PIN WRAP ── */
 .pin-wrap {
-background: transparent;
-box-shadow: none;
-padding: 0;
-margin-bottom: 20px;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  margin-bottom: 20px;
 }
 
 .pin {
-display: flex;
-justify-content: center;
-gap: 10px;
-margin: 12px 0;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 12px 0;
 }
 
 /* ── ЯЧЕЙКИ PIN ── */
 .digit {
-width: 58px;
-height: 62px;
-border-radius: 2px;
-border: none;
-text-align: center;
-background-image:
-repeating-linear-gradient(
-88deg,
-transparent 0px, transparent 5px,
-rgba(0,0,0,.07) 5px, rgba(0,0,0,.07) 6px
-),
-linear-gradient(160deg, #2a1505 0%, #3d1f08 40%, #2e1606 100%);
-box-shadow:
-inset 0 1px 3px rgba(255,180,80,.08),
-inset 0 -2px 4px rgba(0,0,0,.5),
-0 4px 12px rgba(0,0,0,.55);
-color: #c8a050;
-font-family: ‘Rye’, serif;
-font-size: 20px;
-transition: .18s ease;
+  width: 58px;
+  height: 62px;
+  border-radius: 2px;
+  border: none;
+  text-align: center;
+  background-image:
+    repeating-linear-gradient(
+      88deg,
+      transparent 0px, transparent 5px,
+      rgba(0,0,0,.07) 5px, rgba(0,0,0,.07) 6px
+    ),
+    linear-gradient(160deg, #2a1505 0%, #3d1f08 40%, #2e1606 100%);
+  box-shadow:
+    inset 0 1px 3px rgba(255,180,80,.08),
+    inset 0 -2px 4px rgba(0,0,0,.5),
+    0 4px 12px rgba(0,0,0,.55);
+  color: #c8a050;
+  font-family: 'Rye', serif;
+  font-size: 20px;
+  transition: .18s ease;
 }
 
 .digit:focus {
-outline: none;
-box-shadow:
-inset 0 1px 3px rgba(255,180,80,.1),
-inset 0 -2px 4px rgba(0,0,0,.5),
-0 0 0 2px #b8760a,
-0 0 14px rgba(184,118,10,.4),
-0 6px 20px rgba(0,0,0,.6);
-color: #f0c060;
-transform: translateY(-2px);
+  outline: none;
+  box-shadow:
+    inset 0 1px 3px rgba(255,180,80,.1),
+    inset 0 -2px 4px rgba(0,0,0,.5),
+    0 0 0 2px #b8760a,
+    0 0 14px rgba(184,118,10,.4),
+    0 6px 20px rgba(0,0,0,.6);
+  color: #f0c060;
+  transform: translateY(-2px);
 }
 
 /* ── КНОПКА ── */
 .open-btn {
-display: block;
-width: 100%;
-border-radius: 2px;
-border: none;
-cursor: pointer;
-background-image:
-repeating-linear-gradient(
-90deg,
-transparent 0px, transparent 7px,
-rgba(0,0,0,.09) 7px, rgba(0,0,0,.09) 8px
-),
-linear-gradient(180deg, #3a1a05 0%, #2a1003 50%, #1e0c02 100%);
-padding: 14px 28px;
-font-family: ‘Montserrat’, serif;
-font-size: 13px;
-letter-spacing: 3px;
-color: #c09040;
-text-shadow: 0 1px 4px rgba(0,0,0,.8);
-text-transform: uppercase;
-box-shadow:
-0 0 0 2px #1a0800,
-0 0 0 5px #7a4a10,
-0 0 0 7px #1a0800,
-0 8px 24px rgba(0,0,0,.6);
-position: relative;
-transition: .2s ease;
+  display: block;
+  width: 100%;
+  border-radius: 2px;
+  border: none;
+  cursor: pointer;
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px, transparent 7px,
+      rgba(0,0,0,.09) 7px, rgba(0,0,0,.09) 8px
+    ),
+    linear-gradient(180deg, #3a1a05 0%, #2a1003 50%, #1e0c02 100%);
+  padding: 14px 28px;
+  font-family: Montserrat, sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: #c09040;
+  text-shadow: 0 1px 4px rgba(0,0,0,.8);
+  text-transform: uppercase;
+  box-shadow:
+    0 0 0 2px #1a0800,
+    0 0 0 5px #7a4a10,
+    0 0 0 7px #1a0800,
+    0 8px 24px rgba(0,0,0,.6);
+  position: relative;
+  transition: .2s ease;
 }
 
-.open-btn::before { content: ‘✦’; position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #8b6020; font-size: 11px; }
-.open-btn::after  { content: ‘✦’; position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: #8b6020; font-size: 11px; }
+.open-btn::before { content: '✦'; position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #8b6020; font-size: 11px; }
+.open-btn::after  { content: '✦'; position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: #8b6020; font-size: 11px; }
 
 .open-btn:hover {
-transform: translateY(-1px);
-color: #d8aa50;
-box-shadow:
-0 0 0 2px #1a0800,
-0 0 0 5px #9a6020,
-0 0 0 7px #1a0800,
-0 12px 32px rgba(0,0,0,.7);
+  transform: translateY(-1px);
+  color: #d8aa50;
 }
 
 .open-btn:active {
-transform: translateY(1px);
-box-shadow:
-0 0 0 2px #1a0800,
-0 0 0 5px #7a4a10,
-0 0 0 7px #1a0800,
-0 2px 8px rgba(0,0,0,.6),
-inset 0 3px 8px rgba(0,0,0,.4);
+  transform: translateY(1px);
+  box-shadow:
+    0 0 0 2px #1a0800,
+    0 0 0 5px #7a4a10,
+    0 0 0 7px #1a0800,
+    0 2px 8px rgba(0,0,0,.6),
+    inset 0 3px 8px rgba(0,0,0,.4);
 }
 
 /* ── ПОДПИСЬ ── */
 .access-hint {
-margin-top: 14px;
-font-family: ‘IM Fell English’, serif;
-font-style: italic;
-font-size: 11px;
-color: #3a1c00;
-opacity: .6;
-text-align: center;
-letter-spacing: 0.5px;
+  margin-top: 14px;
+  font-family: Montserrat, sans-serif;
+  font-size: 10px;
+  color: #3a1c00;
+  opacity: .6;
+  text-align: center;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 /* ── БЛОКИ ПОЗДРАВЛЕНИЯ ── */
 .card h2 {
-font-family: ‘Playfair Display’, serif;
-font-size: 22px;
-color: #1a0800;
-margin: 40px 0 16px;
-text-align: center;
-letter-spacing: 2px;
+  font-family: "Playfair Display", serif;
+  font-weight: 800;
+  font-size: 24px;
+  color: #1a0800;
+  margin: 40px 0 16px;
+  text-align: center;
+  letter-spacing: 1px;
 }
 
 .wanted-block {
-background: rgba(255,255,255,.25);
-border-left: 3px solid #7a4a10;
-padding: 14px;
-border-radius: 3px;
-margin: 14px 0 18px;
-color: #1a0800;
-text-align: left;
-font-family: ‘Montserrat’, serif;
-font-size: 15px;
-line-height: 1.6;
+  background: rgba(255,255,255,.3);
+  border-left: 3px solid #7a4a10;
+  padding: 14px;
+  border-radius: 3px;
+  margin: 14px 0 18px;
+  color: #1a0800;
+  text-align: left;
+  font-family: Montserrat, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.wanted-block b {
+  font-family: "Playfair Display", serif;
+  font-size: 15px;
 }
 
 .wanted-block ul {
-margin: 8px 0 0;
-padding-left: 18px;
+  margin: 8px 0 0;
+  padding-left: 18px;
 }
 
 .wanted-block li {
-margin-bottom: 4px;
+  margin-bottom: 4px;
 }
 
 .congrats {
-font-family: ‘IM Fell English’, serif;
-font-size: 15px;
-line-height: 1.7;
-color: #1a0800;
-text-align: left;
-margin: 16px 0;
+  font-family: Montserrat, sans-serif;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #1a0800;
+  text-align: left;
+  margin: 16px 0;
 }
 
 .gift {
-margin-top: 16px;
-padding: 14px;
-border-left: 3px solid #7a4a10;
-background: rgba(255,255,255,.2);
-border-radius: 3px;
-color: #1a0800;
-font-family: ‘IM Fell English’, serif;
-font-size: 15px;
+  margin-top: 16px;
+  padding: 14px;
+  border-left: 3px solid #7a4a10;
+  background: rgba(255,255,255,.25);
+  border-radius: 3px;
+  color: #1a0800;
+  font-family: Montserrat, sans-serif;
+  font-size: 14px;
 }
 
 .pdf-preview {
-margin-top: 10px;
-border-radius: 4px;
-overflow: hidden;
-cursor: pointer;
-box-shadow: 0 6px 18px rgba(0,0,0,.25);
+  margin-top: 10px;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,.25);
 }
 
 .pdf-preview iframe {
-width: 100%;
-height: 240px;
-border: none;
-pointer-events: none;
+  width: 100%;
+  height: 240px;
+  border: none;
+  pointer-events: none;
 }
 
 /* ── FULLSCREEN PDF ── */
 .pdf-full {
-position: fixed;
-inset: 0;
-background: rgba(0,0,0,.92);
-display: none;
-justify-content: center;
-align-items: center;
-z-index: 3000;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.92);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
 }
 
 .pdf-full iframe {
-width: 96%;
-height: 96%;
-border: none;
-background: #fff;
+  width: 96%;
+  height: 96%;
+  border: none;
+  background: #fff;
 }
 
 .pdf-close {
-position: absolute;
-top: 18px;
-right: 24px;
-color: white;
-font-size: 28px;
-cursor: pointer;
+  position: absolute;
+  top: 18px;
+  right: 24px;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
 }
 
 /* ── АНИМАЦИИ ── */
 .shake {
-animation: shake .35s;
+  animation: shake .35s;
 }
 
 @keyframes shake {
-0%, 100% { transform: translateX(0) }
-25%       { transform: translateX(-6px) }
-50%       { transform: translateX(6px) }
-75%       { transform: translateX(-4px) }
+  0%, 100% { transform: translateX(0) }
+  25%       { transform: translateX(-6px) }
+  50%       { transform: translateX(6px) }
+  75%       { transform: translateX(-4px) }
 }
 
 .shake-screen {
-animation: screenShake .35s;
+  animation: screenShake .35s;
 }
 
 @keyframes screenShake {
-0%, 100% { transform: translate(0) }
-25%       { transform: translate(-2px, 1px) }
-50%       { transform: translate(2px, -1px) }
-75%       { transform: translate(-1px, 2px) }
+  0%, 100% { transform: translate(0) }
+  25%       { transform: translate(-2px, 1px) }
+  50%       { transform: translate(2px, -1px) }
+  75%       { transform: translate(-1px, 2px) }
 }
 
 @keyframes posterPulse {
-0%   { transform: scale(1); }
-50%  { transform: scale(1.04); }
-100% { transform: scale(1); }
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.04); }
+  100% { transform: scale(1); }
 }
 
 .poster.pulse {
-animation: posterPulse 1.6s ease;
+  animation: posterPulse 1.6s ease;
 }
-  
 </style>
+
 </head>
 
 <body>
 
 <h1>В этот 23 февраля разыскиваются...</h1>
 <div class="hint">
-(Если дело заведено на вас — немедленно откройте его, нажав на свой постер)
+  (Если дело заведено на вас — немедленно откройте его, нажав на свой постер)
 </div>
 <div class="grid">
-<div class="poster" onclick="openCase('4821')"><img src="IMG_4993.png"><div class="name">Дима</div></div>
-<div class="poster" onclick="openCase('7593')"><img src="IMG_4984.png"><div class="name">Ярослав</div></div>
-<div class="poster" onclick="openCase('1938')"><img src="IMG_4994.png"><div class="name">Егор</div></div>
-<div class="poster" onclick="openCase('4488')"><img src="IMG_4983.png"><div class="name">Женя</div></div>
-<div class="poster" onclick="openCase('3344')"><img src="IMG_4982.png"><div class="name">Дима</div></div>
-<div class="poster" onclick="openCase('9087')"><img src="IMG_4981.png"><div class="name">Никита</div></div>
-<div class="poster" onclick="openCase('6651')"><img src="IMG_4980.png"><div class="name">Тамерлан</div></div>
+  <div class="poster" onclick="openCase('4821')"><img src="IMG_4993.png"><div class="name">Дима</div></div>
+  <div class="poster" onclick="openCase('7593')"><img src="IMG_4984.png"><div class="name">Ярослав</div></div>
+  <div class="poster" onclick="openCase('1938')"><img src="IMG_4994.png"><div class="name">Егор</div></div>
+  <div class="poster" onclick="openCase('4488')"><img src="IMG_4983.png"><div class="name">Женя</div></div>
+  <div class="poster" onclick="openCase('3344')"><img src="IMG_4982.png"><div class="name">Дима</div></div>
+  <div class="poster" onclick="openCase('9087')"><img src="IMG_4981.png"><div class="name">Никита</div></div>
+  <div class="poster" onclick="openCase('6651')"><img src="IMG_4980.png"><div class="name">Тамерлан</div></div>
 </div>
 
 <div class="modal" id="modal">
-<div class="close" onclick="closeModal()">×</div>
-<div class="card" id="content"></div>
+  <div class="close" onclick="closeModal()">×</div>
+  <div class="card" id="content"></div>
 </div>
 
 <div class="pdf-full" id="pdfFull">
-<div class="pdf-close" onclick="closePDF()">✕</div>
-<iframe id="pdfFrame"></iframe>
+  <div class="pdf-close" onclick="closePDF()">✕</div>
+  <iframe id="pdfFrame"></iframe>
 </div>
 
-  <audio id="stampSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_8f2a3d7a5f.mp3"></audio>
+<audio id="stampSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_8f2a3d7a5f.mp3"></audio>
+
 <script>
-
-const people={
-"4821":{
-name:"Дима",
-wanted:["лидерство и ответственность","спокойствие в любых ситуациях","стратегическое мышление","умение доводить идеи до результата"],
-text:`Дима, с 23 февраля! 😎🔥
-
-Мы весь год шутили, что «нам всем срочно нужен санаторий»…
-Но решили — начинать надо с руководства 😄
-
-Так что этот сертификат — официальное разрешение:
-✔ выдохнуть
-✔ полежать
-✔ ничего не решать хотя бы пару часов
-✔ и вернуться к нам ещё более опасно эффективным
-
-Пусть сил хватает на амбиции, нервов на нас, а энергии на все твои нестандартные идеи (которые мы потом героически реализуем 😅).`,
-gift:{text:"🎁Твой подарок от команды",file:"10585.pdf"}
-},
-
-"7593":{
-name:"Ярослав",
-wanted:["организованность и порядок","точность и внимание к деталям","спокойствие и уверенность","надёжность в работе"],
-text:`Ярослав, с 23 февраля!
-
-Ты хотел одну вещь — и вселенная услышала.
-
-Дарим тебе сертификат в онлайн-магазин, чтобы ни одна мечта больше не «зависала на складе» 😉
-
-Ты у нас человек «по полочкам», по таймингу и без лишнего шума, что даже подарки тебе должны быть оформлены правильно и по делу.
-
-Пусть всё складывается чётко, красиво и с бонусами! 💙`,
-gift:{text:"🎁 Твой подарок от команды",file:"gift.pdf"}
-},
-
-"1938":{name:"Егор",wanted:["стабильность","системность","аналитическое мышление"],text:`Егор, с 23 февраля!
-
-Пусть сейчас мы работаем вместе не так часто, но наше уважение и тёплое отношение к тебе — неизменны 🤍
-
-Мы ценим тебя как сильного специалиста и отличного аналитика, человека, который умеет смотреть глубже, видеть суть и принимать взвешенные решения. С тобой всегда спокойно и по-деловому надёжно.
-
-Желаем тебе только добра, интересных проектов, профессионального роста и внутреннего баланса. Пусть всё задуманное складывается именно так, как ты планируешь — чётко и красиво 😉`},
-"4488":{name:"Женя",wanted:["креативность","ответственность","надёжность"],text:`Женя, с 23 февраля!
-
-От всего нашего девичьего коллектива — с уважением и улыбкой 🤍
-
-Ты тот редкий специалист, у которого креатив работает быстрее дедлайнов, а чувство юмора спасает даже самые напряжённые рабочие дни. С тобой спокойно, надёжно и при этом никогда не скучно.
-
-Пусть идей будет ещё больше, проекты заходят «в десятку», а энергия и драйв только растут.
-Оставайся таким же классным профи и человеком, с которым хочется работать в одной команде! 💪✨`},
-"9087":{name:"Никита",wanted:["новые подходы","энергию","решительность"],text:`Никита, с 23 февраля! 🎉
-
-От нашего девичьего коллектива — с искренним уважением 🤍
-
-В тебе чувствуется отличное воспитание, внутренняя культура и спокойная уверенность. У тебя все без суеты, без лишних эмоций, всё по-делу и по-взрослому.
-
-Пусть у тебя всё складывается именно так, как ты планируешь, шаг за шагом. Стабильности, роста и уверенности в каждом решении! 💪✨`},
-"6651":{name:"Тамерлан",wanted:["креативность","уверенность","оперативность"],text:`Тамерлан, с 23 февраля! 🎉
-
-От нашего девичьего коллектива — с уважением и лёгкой улыбкой 🤍
-
-Нам очень нравится твоя креативность — ты умеешь смотреть шире, находить нестандартные решения и при этом чётко выстраивать границы. Это редкое сочетание: свобода мысли и внутренняя структура. Иногда нам кажется, что ты работаешь в режиме «инкогнито» — тихо, спокойно, без лишнего шума, но всегда по делу 😉
-
-Пусть твои идеи реализуются, проекты масштабируются, а личные границы только укрепляются. Оставайся таким же интересным, глубоким и немного загадочным! ✨`},
-"3344":{name:"Дима",wanted:["ответственность","оперативность","доведение до результата"],text:`Дима, с 23 февраля! 🎉
-
-От нашего девичьего коллектива — тёплые поздравления и самые искренние пожелания 🤍
-
-Ты очень приятный, лёгкий в общении и по-настоящему добрый человек. С тобой комфортно, спокойно и по-человечески тепло — а это редкость!
-
-Пусть работа приносит удовольствие, задачи решаются легко, а рядом будут люди, с которыми хочется расти и двигаться вперёд.
-Оставайся таким же открытым, искренним и классным! 💫`}
+const people = {
+  "4821": {
+    name: "Дима",
+    wanted: ["лидерство и ответственность","спокойствие в любых ситуациях","стратегическое мышление","умение доводить идеи до результата"],
+    text: `Дима, с 23 февраля! 😎🔥\n\nМы весь год шутили, что «нам всем срочно нужен санаторий»…\nНо решили — начинать надо с руководства 😄\n\nТак что этот сертификат — официальное разрешение:\n✔ выдохнуть\n✔ полежать\n✔ ничего не решать хотя бы пару часов\n✔ и вернуться к нам ещё более опасно эффективным\n\nПусть сил хватает на амбиции, нервов на нас, а энергии на все твои нестандартные идеи (которые мы потом героически реализуем 😅).`,
+    gift: { text: "🎁 Твой подарок от команды", file: "10585.pdf" }
+  },
+  "7593": {
+    name: "Ярослав",
+    wanted: ["организованность и порядок","точность и внимание к деталям","спокойствие и уверенность","надёжность в работе"],
+    text: `Ярослав, с 23 февраля!\n\nТы хотел одну вещь — и вселенная услышала.\n\nДарим тебе сертификат в онлайн-магазин, чтобы ни одна мечта больше не «зависала на складе» 😉\n\nТы у нас человек «по полочкам», по таймингу и без лишнего шума, что даже подарки тебе должны быть оформлены правильно и по делу.\n\nПусть всё складывается чётко, красиво и с бонусами! 💙`,
+    gift: { text: "🎁 Твой подарок от команды", file: "gift.pdf" }
+  },
+  "1938": {
+    name: "Егор",
+    wanted: ["стабильность","системность","аналитическое мышление"],
+    text: `Егор, с 23 февраля!\n\nПусть сейчас мы работаем вместе не так часто, но наше уважение и тёплое отношение к тебе — неизменны 🤍\n\nМы ценим тебя как сильного специалиста и отличного аналитика, человека, который умеет смотреть глубже, видеть суть и принимать взвешенные решения. С тобой всегда спокойно и по-деловому надёжно.\n\nЖелаем тебе только добра, интересных проектов, профессионального роста и внутреннего баланса. Пусть всё задуманное складывается именно так, как ты планируешь — чётко и красиво 😉`
+  },
+  "4488": {
+    name: "Женя",
+    wanted: ["креативность","ответственность","надёжность"],
+    text: `Женя, с 23 февраля!\n\nОт всего нашего девичьего коллектива — с уважением и улыбкой 🤍\n\nТы тот редкий специалист, у которого креатив работает быстрее дедлайнов, а чувство юмора спасает даже самые напряжённые рабочие дни. С тобой спокойно, надёжно и при этом никогда не скучно.\n\nПусть идей будет ещё больше, проекты заходят «в десятку», а энергия и драйв только растут. Оставайся таким же классным профи и человеком, с которым хочется работать в одной команде! 💪✨`
+  },
+  "9087": {
+    name: "Никита",
+    wanted: ["новые подходы","энергию","решительность"],
+    text: `Никита, с 23 февраля! 🎉\n\nОт нашего девичьего коллектива — с искренним уважением 🤍\n\nВ тебе чувствуется отличное воспитание, внутренняя культура и спокойная уверенность. У тебя всё без суеты, без лишних эмоций, всё по-делу и по-взрослому.\n\nПусть у тебя всё складывается именно так, как ты планируешь, шаг за шагом. Стабильности, роста и уверенности в каждом решении! 💪✨`
+  },
+  "6651": {
+    name: "Тамерлан",
+    wanted: ["креативность","уверенность","оперативность"],
+    text: `Тамерлан, с 23 февраля! 🎉\n\nОт нашего девичьего коллектива — с уважением и лёгкой улыбкой 🤍\n\nНам очень нравится твоя креативность — ты умеешь смотреть шире, находить нестандартные решения и при этом чётко выстраивать границы. Это редкое сочетание: свобода мысли и внутренняя структура.\n\nПусть твои идеи реализуются, проекты масштабируются, а личные границы только укрепляются. Оставайся таким же интересным, глубоким и немного загадочным! ✨`
+  },
+  "3344": {
+    name: "Дима",
+    wanted: ["ответственность","оперативность","доведение до результата"],
+    text: `Дима, с 23 февраля! 🎉\n\nОт нашего девичьего коллектива — тёплые поздравления и самые искренние пожелания 🤍\n\nТы очень приятный, лёгкий в общении и по-настоящему добрый человек. С тобой комфортно, спокойно и по-человечески тепло — а это редкость!\n\nПусть работа приносит удовольствие, задачи решаются легко, а рядом будут люди, с которыми хочется расти и двигаться вперёд. Оставайся таким же открытым, искренним и классным! 💫`
+  }
 };
 
-let currentCode=null;
+let currentCode = null;
 
-function openCase(code){
-  currentCode=code;
-  document.getElementById("modal").style.display="flex";
-
-  document.getElementById("content").innerHTML=`
-<div class="classified">КОНФИДЕНЦИАЛЬНО</div>
-
-<div class="access-screen">
-
-  <div class="access-title">Секретный доступ</div>
-  <div class="access-sub">Подтвердите личность</div>
-
-  <div class="pin-wrap">
-
-    <div class="pin" id="pinBox">
-      <input maxlength="1" class="digit">
-      <input maxlength="1" class="digit">
-      <input maxlength="1" class="digit">
-      <input maxlength="1" class="digit">
+function openCase(code) {
+  currentCode = code;
+  document.getElementById("modal").style.display = "flex";
+  document.getElementById("content").innerHTML = `
+    <div class="classified">КОНФИДЕНЦИАЛЬНО</div>
+    <div class="access-title">Секретный доступ</div>
+    <div class="access-sub">Подтвердите личность</div>
+    <div class="pin-wrap">
+      <div class="pin" id="pinBox">
+        <input maxlength="1" class="digit">
+        <input maxlength="1" class="digit">
+        <input maxlength="1" class="digit">
+        <input maxlength="1" class="digit">
+      </div>
+      <button class="open-btn" onclick="unlock()">Открыть дело</button>
     </div>
+    <div class="access-hint">Код доступа шерифа</div>
+  `;
 
-    <button class="open-btn" onclick="unlock()">Открыть дело</button>
-
-  </div>
-
-  <div class="access-hint">Код доступа шерифа</div>
-</div>
-`;
-  const inputs=document.querySelectorAll(".digit");
+  const inputs = document.querySelectorAll(".digit");
   inputs[0].focus();
-
-  inputs.forEach((input,i)=>{
-    input.addEventListener("input",()=>{
-      if(input.value && inputs[i+1]) inputs[i+1].focus();
+  inputs.forEach((input, i) => {
+    input.addEventListener("input", () => {
+      if (input.value && inputs[i+1]) inputs[i+1].focus();
     });
-
-    input.addEventListener("keydown",(e)=>{
-      if(e.key==="Backspace" && !input.value && inputs[i-1])
-        inputs[i-1].focus();
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Backspace" && !input.value && inputs[i-1]) inputs[i-1].focus();
     });
   });
 }
 
-
-function unlock(){
-  const val=[...document.querySelectorAll(".digit")].map(d=>d.value).join("");
-
-  if(val!==currentCode){
-    const box=document.getElementById("pinBox");
+function unlock() {
+  const val = [...document.querySelectorAll(".digit")].map(d => d.value).join("");
+  if (val !== currentCode) {
+    const box = document.getElementById("pinBox");
     box.classList.add("shake");
-    setTimeout(()=>box.classList.remove("shake"),350);
+    setTimeout(() => box.classList.remove("shake"), 350);
     return;
   }
 
-  const p=people[currentCode];
-
-  document.getElementById("content").innerHTML=`
+  const p = people[currentCode];
+  document.getElementById("content").innerHTML = `
     <div class="stamp">ДОСТУП ПРЕДОСТАВЛЕН</div>
-
     <h2>${p.name}</h2>
-
     <div class="wanted-block">
       <b>Разыскивается за:</b>
-      <ul>${p.wanted.map(w=>`<li>${w}</li>`).join("")}</ul>
+      <ul>${p.wanted.map(w => `<li>${w}</li>`).join("")}</ul>
     </div>
-
     <div class="congrats">
       <p style="white-space:pre-line;">${p.text}</p>
     </div>
-
-    ${p.gift?`
+    ${p.gift ? `
     <div class="gift">
       ${p.gift.text}
       <div class="pdf-preview" onclick="openPDF('${p.gift.file}')">
         <iframe src="${p.gift.file}"></iframe>
       </div>
-    </div>`:""}
+    </div>` : ""}
   `;
 
   document.body.classList.add("shake-screen");
-  setTimeout(()=>document.body.classList.remove("shake-screen"),350);
-
-  document.getElementById("stampSound").currentTime=0;
-  document.getElementById("stampSound").play().catch(()=>{});
-
-  setTimeout(()=>document.querySelector(".stamp").classList.add("show"),50);
+  setTimeout(() => document.body.classList.remove("shake-screen"), 350);
+  document.getElementById("stampSound").currentTime = 0;
+  document.getElementById("stampSound").play().catch(() => {});
+  setTimeout(() => document.querySelector(".stamp").classList.add("show"), 50);
 }
 
-function openPDF(file){
-  document.getElementById("pdfFrame").src=file;
-  document.getElementById("pdfFull").style.display="flex";
+function openPDF(file) {
+  document.getElementById("pdfFrame").src = file;
+  document.getElementById("pdfFull").style.display = "flex";
 }
 
-function closePDF(){
-  document.getElementById("pdfFull").style.display="none";
-  document.getElementById("pdfFrame").src="";
+function closePDF() {
+  document.getElementById("pdfFull").style.display = "none";
+  document.getElementById("pdfFrame").src = "";
 }
 
-function closeModal(){
-  document.getElementById("modal").style.display="none";
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
 }
-  /* =========================
-   RANDOM POSTER PULSE IDLE
-========================= */
 
-let idleTimer=null;
-let pulseLoop=null;
-const IDLE_DELAY=4000; // через 4 сек бездействия начинается режим
-const MIN_GAP=2200;    // минимальный интервал между пульсами
-const MAX_GAP=5200;    // максимальный
+// Idle poster pulse
+let idleTimer = null, pulseLoop = null;
+const IDLE_DELAY = 4000, MIN_GAP = 2200, MAX_GAP = 5200;
 
-function resetIdle(){
+function resetIdle() {
   clearTimeout(idleTimer);
   clearTimeout(pulseLoop);
-
-  idleTimer=setTimeout(startPulseLoop,IDLE_DELAY);
+  idleTimer = setTimeout(pulseRandomPoster, IDLE_DELAY);
 }
 
-function startPulseLoop(){
-  pulseRandomPoster();
+function pulseRandomPoster() {
+  const posters = [...document.querySelectorAll(".poster")];
+  if (!posters.length) return;
+  const p = posters[Math.floor(Math.random() * posters.length)];
+  p.classList.add("pulse");
+  setTimeout(() => p.classList.remove("pulse"), 1600);
+  pulseLoop = setTimeout(pulseRandomPoster, Math.random() * (MAX_GAP - MIN_GAP) + MIN_GAP);
 }
 
-function pulseRandomPoster(){
-  const posters=[...document.querySelectorAll(".poster")];
-  if(!posters.length) return;
-
-  const randomPoster=posters[Math.floor(Math.random()*posters.length)];
-  randomPoster.classList.add("pulse");
-
-  setTimeout(()=>randomPoster.classList.remove("pulse"),1600);
-
-  const nextDelay=Math.random()*(MAX_GAP-MIN_GAP)+MIN_GAP;
-  pulseLoop=setTimeout(pulseRandomPoster,nextDelay);
-}
-
-/* сброс idle при активности */
-["click","touchstart","mousemove","keydown","scroll"].forEach(evt=>{
-  window.addEventListener(evt,resetIdle,{passive:true});
+["click","touchstart","mousemove","keydown","scroll"].forEach(evt => {
+  window.addEventListener(evt, resetIdle, { passive: true });
 });
-
-/* запуск */
 resetIdle();
 </script>
 
