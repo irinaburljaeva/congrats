@@ -132,6 +132,7 @@ h1{
   padding:25px;
   border-radius:6px;
   max-width:420px;
+  position:relative;
   width:90%;
   text-align:left;
   box-shadow:0 10px 30px rgba(0,0,0,.5);
@@ -175,7 +176,45 @@ button{
   font-size:22px;
   cursor:pointer;
 }
+.stamp{
+  position:absolute;
+  top:18px;
+  right:20px;
 
+  font-family:monospace;
+  font-weight:700;
+  letter-spacing:2px;
+  font-size:22px;
+
+  color:#7a0000;
+  border:3px solid #7a0000;
+  padding:6px 12px;
+
+  transform:rotate(-12deg) scale(0.6);
+  opacity:0;
+
+  pointer-events:none;
+}
+
+/* анимация штампа */
+.stamp.show{
+  animation:stampIn .45s ease forwards;
+}
+
+@keyframes stampIn{
+  0%{
+    transform:rotate(-12deg) scale(2);
+    opacity:0;
+  }
+  60%{
+    transform:rotate(-12deg) scale(0.9);
+    opacity:1;
+  }
+  100%{
+    transform:rotate(-12deg) scale(1);
+    opacity:1;
+  }
+}
 /* SCANNER */
 .scanner{
   font-family:monospace;
@@ -394,26 +433,28 @@ function unlock(){
     const p=people[currentCode];
     if(!p) return;
 
-    document.getElementById("content").innerHTML=`
-      <h2>${p.name}</h2>
+ document.getElementById("content").innerHTML=`
+  <div class="stamp">ACCESS GRANTED</div>
 
-<div style="margin:10px 0 14px;font-weight:600;">Разыскивается за:</div>
+  <h2>${p.name}</h2>
 
-<ul style="margin:0 0 16px 18px;">
-  ${p.wanted ? p.wanted.map(w=>`<li>${w}</li>`).join("") : ""}
-</ul>
+  <div style="margin:10px 0 14px;font-weight:600;">Разыскивается за:</div>
 
-<p style="white-space:pre-line;">${p.text}</p>
+  <ul style="margin:0 0 16px 18px;">
+    ${p.wanted ? p.wanted.map(w=>`<li>${w}</li>`).join("") : ""}
+  </ul>
 
-      ${p.gift?`
-      <div class="gift">
-        ${p.gift.text}
-        <div class="pdf-frame">
-          <iframe src="${p.gift.file}"></iframe>
-        </div>
-      </div>
-      `:""}
-    `;
+  <p style="white-space:pre-line;">${p.text}</p>
+
+  ${p.gift?`
+  <div class="gift">
+    ${p.gift.text}
+    <div class="pdf-frame">
+      <iframe src="${p.gift.file}"></iframe>
+    </div>
+  </div>
+  `:""}
+`;
   },700);
 }
 
