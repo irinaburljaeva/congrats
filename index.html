@@ -216,123 +216,111 @@ h1{
   background:#efe0bf;
 }
   
-/* ===============================
-   CINEMATIC SHERIFF DOSSIER
-   =============================== */
+/* =========================
+   CINEMATIC CLEAN FOCUS
+   ========================= */
 
-/* затемнение сцены + тёплый свет лампы */
+/* фон — мягкое затемнение + фокус */
 .modal{
   background:
-    radial-gradient(circle at 50% 120px,
-      rgba(255,210,120,.15),
-      rgba(0,0,0,.92) 55%);
-  backdrop-filter: blur(2px);
+    radial-gradient(circle at 50% 35%,
+      rgba(255,255,255,.04),
+      rgba(0,0,0,.88) 60%);
+  backdrop-filter: blur(4px);
 }
 
-/* бумага как настоящий лист */
+/* окно — легкое, чистое */
 .card{
-  border-radius: 0;
-  transform: rotate(-0.4deg);
-  background:
-    radial-gradient(circle at 50% 40px, rgba(0,0,0,.18), transparent 60%),
-    url("https://www.transparenttextures.com/patterns/old-paper.png"),
-    linear-gradient(#e6d2a4,#d7bf8c);
+  background: rgba(245,230,200,.96);
+  border-radius: 14px;
+  padding: 40px 22px 28px;
+  transform: none;
   box-shadow:
-    0 35px 70px rgba(0,0,0,.65),
-    inset 0 0 60px rgba(0,0,0,.35);
-  border: 1px solid rgba(0,0,0,.35);
+    0 25px 60px rgba(0,0,0,.55);
+  border: 1px solid rgba(0,0,0,.15);
 }
 
-/* затемнённые края бумаги */
-.card::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  box-shadow: inset 0 0 80px rgba(0,0,0,.35);
-}
+/* убираем "тяжесть" бумаги */
+.card::after{ display:none; }
 
-/* печать CONFIDENTIAL как настоящая */
+/* печать — аккуратная */
 .classified{
-  font-size:13px;
-  letter-spacing:3px;
-  padding:6px 12px;
-  background:rgba(122,0,0,.05);
-  border:2px solid #7a0000;
-  box-shadow:0 0 6px rgba(122,0,0,.3);
-  transform:rotate(-12deg);
-}
-
-/* заголовок — как машинописный */
-.access-title{
-  font-size:30px;
-  letter-spacing:1px;
-  text-shadow:0 1px 0 #fff4, 0 2px 4px rgba(0,0,0,.25);
-}
-
-/* подзаголовок */
-.access-sub{
+  top:10px;
+  left:14px;
   font-size:12px;
-  letter-spacing:1px;
-  opacity:.6;
+  letter-spacing:2px;
+  opacity:.5;
+  border:1px solid #7a0000;
+  padding:3px 8px;
+  transform:rotate(-8deg);
 }
 
-/* УБИРАЕМ «неоморфную карточку» — теперь PIN прямо на бумаге */
+/* заголовок — спокойный */
+.access-title{
+  font-size:28px;
+  margin-bottom:4px;
+}
+
+.access-sub{
+  font-size:13px;
+  opacity:.6;
+  margin-bottom:18px;
+}
+
+/* убираем коробку вокруг PIN */
 .pin-wrap{
   background: transparent;
   box-shadow: none;
-  padding: 8px 0 12px;
+  padding:0;
+  margin-bottom:14px;
 }
 
-/* PIN как штампы/ячейки */
+/* PIN — современный, чистый */
 .digit{
-  border-radius: 0;
-  background:
-    linear-gradient(#f1e1b8,#e2c88f);
-  border: 2px solid #8e6b3c;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.6),
-    inset 0 -3px 6px rgba(0,0,0,.25);
+  width:58px;
+  height:64px;
+  border-radius:10px;
+  border:2px solid #c8a96f;
+  background:#fff8e6;
+  box-shadow:0 4px 10px rgba(0,0,0,.12);
+  transition:.18s;
 }
 
-/* активная цифра — эффект прожектора */
 .digit:focus{
+  border-color:#8b6a3f;
   box-shadow:
-    0 0 0 2px rgba(255,210,120,.35),
-    0 0 18px rgba(255,210,120,.35),
-    inset 0 1px 0 rgba(255,255,255,.7);
-  transform: translateY(-1px) scale(1.03);
+    0 0 0 2px rgba(200,170,120,.35),
+    0 6px 16px rgba(0,0,0,.18);
+  transform:translateY(-1px) scale(1.04);
 }
 
-/* кнопка как латунная табличка */
+/* кнопка — легкая, премиальная */
 .open-btn{
-  border-radius: 0;
-  background:
-    linear-gradient(#caa96b,#9f7b43);
-  border:1px solid rgba(0,0,0,.35);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.35),
-    0 6px 16px rgba(0,0,0,.45);
+  border-radius:999px;
+  background:linear-gradient(180deg,#d9c39a,#b7955e);
+  padding:12px 30px;
+  font-weight:700;
+  box-shadow:0 8px 18px rgba(0,0,0,.25);
 }
 
 .open-btn:hover{
-  transform: translateY(-1px);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.4),
-    0 10px 22px rgba(0,0,0,.55);
+  transform:translateY(-1px);
+  box-shadow:0 12px 24px rgba(0,0,0,.35);
 }
 
-/* текст подсказки как машинописный */
+/* текст подсказки */
 .access-hint{
-  font-size:11px;
-  letter-spacing:2px;
+  margin-top:12px;
+  font-size:12px;
   opacity:.55;
 }
 
-/* печать ДОСТУП — сильнее, глубже */
+/* штамп — аккуратнее */
 .stamp{
-  text-shadow:0 0 6px rgba(122,0,0,.25);
-  box-shadow:0 0 8px rgba(122,0,0,.25);
+  top:10px;
+  right:14px;
+  font-size:18px;
+  border-width:2px;
 }
 
 /* shake если код неверный */
