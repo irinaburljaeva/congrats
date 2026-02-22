@@ -33,27 +33,27 @@ h1{
 }
 
 .poster{
-  width:200px;
-  background:#f4e6c8;
-  border:3px solid #d2b48c;
-  padding:14px;
+  width:240px;              /* постер больше */
+  background:transparent;   /* УБРАН белый фон */
+  border:none;              /* убрана рамка */
+  padding:0;                /* убран внутренний отступ */
   cursor:pointer;
-  box-shadow:0 8px 20px rgba(0,0,0,.4);
+  box-shadow:0 10px 30px rgba(0,0,0,.5);
   transition:.2s;
 }
 
 .poster:hover{
-  transform:scale(1.05);
+  transform:scale(1.06);
 }
 
-/* Фото */
+/* Фото — как настоящий плакат */
 .poster img{
   width:100%;
-  height:220px;
-  object-fit:contain;
-  background:#efe0bf;
-  padding:6px;
-  filter:sepia(60%) contrast(110%);
+  height:320px;             /* выше постер */
+  object-fit:cover;
+  background:transparent;   /* УБРАН фон вокруг фото */
+  filter:sepia(70%) contrast(115%) brightness(95%);
+  display:block;
 }
 
 .name{
