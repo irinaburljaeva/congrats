@@ -369,6 +369,84 @@ text-align: center;
 animation: fadeDown 1s ease 0.5s both;
 max-width: 360px;
 }
+
+/* Secret message */
+.secret-msg {
+margin-top: 18px;
+padding-top: 16px;
+border-top: 1px dashed rgba(244,114,182,0.3);
+font-size: 13px;
+color: #7c6b6b;
+line-height: 1.6;
+text-align: left;
+}
+.secret-msg strong { color: var(–deep); }
+.dima-btn {
+display: inline-block;
+margin-top: 8px;
+background: none;
+border: none;
+font-family: ‘Nunito’, sans-serif;
+font-size: 13px;
+color: #c084fc;
+text-decoration: underline dotted;
+cursor: pointer;
+padding: 0;
+transition: color 0.2s;
+}
+.dima-btn:hover { color: var(–pink); }
+
+/* Hypno overlay */
+.hypno-overlay {
+position: fixed;
+inset: 0;
+z-index: 999;
+background: #000;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 32px;
+opacity: 0;
+pointer-events: none;
+transition: opacity 0.8s;
+}
+.hypno-overlay.show {
+opacity: 1;
+pointer-events: all;
+}
+.hypno-spiral {
+width: 220px;
+height: 220px;
+animation: hypnoSpin 3s linear infinite;
+}
+@keyframes hypnoSpin {
+from { transform: rotate(0deg); }
+to   { transform: rotate(360deg); }
+}
+.hypno-text {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: clamp(1.1rem, 3.5vw, 1.6rem);
+color: white;
+text-align: center;
+max-width: 380px;
+line-height: 1.55;
+opacity: 0;
+transition: opacity 1s;
+padding: 0 24px;
+}
+.hypno-text.show { opacity: 1; }
+.hypno-text em { color: #c084fc; font-style: italic; }
+.hypno-sub {
+font-family: ‘Nunito’, sans-serif;
+font-size: 12px;
+color: rgba(255,255,255,0.3);
+text-align: center;
+opacity: 0;
+transition: opacity 1s 2s;
+cursor: pointer;
+}
+.hypno-sub.show { opacity: 1; }
 </style>
 
 </head>
@@ -380,13 +458,13 @@ max-width: 360px;
 <div class="page">
   <div class="header">
     <span class="header-emoji">🌸</span>
-    <h1>С <em>8 Марта</em>,<br>девочки!</h1>
-    <p>Эта открытка-антистресс для вас</p>
+    <h1>С <em>8 Марта</em>,<br>дорогие коллеги!</h1>
+    <p>Маленький антистресс специально для вас</p>
   </div>
 
   <div class="instruction">
     <div class="pulse"></div>
-    Нажимайте на пузырики, чтобы лопнуть их!
+    Лопайте пузырики — это обязательно!
   </div>
 
   <div class="counter">
@@ -420,12 +498,52 @@ max-width: 360px;
 <div class="congrats-overlay" id="congratsOverlay">
   <div class="congrats-card">
     <div class="congrats-big">🎉</div>
-    <div class="congrats-title">Ты <em>великолепна!</em></div>
-    <p class="congrats-text">
+    <div class="congrats-title" id="congratsTitle">Вы <em>великолепны!</em></div>
+    <p class="congrats-text" id="congratsText">
       Все пузыри лопнуты — стресс официально побеждён!<br><br>
       С праздником весны, красоты и хорошего настроения! Пусть этот день будет таким же лёгким, как эти пузырики 🌸
     </p>
-    <button class="congrats-btn" id="playAgainBtn">✨ Ещё раз!</button>
+
+```
+<div class="secret-msg">
+  🤫 <strong>Секретное послание:</strong> А и да, сегодня тебе официально можно не работать.
+  Иди наслаждаться жизнью и проводить время с близкими — ты это заслужила.<br><br>
+  <em>P.S. Если этот текст читает Дима —</em>
+  <button class="dima-btn" id="dimaBtn">нажми сюда 👆</button>
+</div>
+
+<button class="congrats-btn" id="playAgainBtn" style="margin-top:20px">✨ Ещё раз!</button>
+```
+
+  </div>
+</div>
+
+<!-- Hypno overlay для Димы -->
+
+<div class="hypno-overlay" id="hypnoOverlay">
+  <svg class="hypno-spiral" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="hg" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#c084fc"/>
+        <stop offset="50%" style="stop-color:#f472b6"/>
+        <stop offset="100%" style="stop-color:#c084fc"/>
+      </linearGradient>
+    </defs>
+    <path d="M100,100 m0,-85 a85,85 0 1,1 -0.1,0" fill="none" stroke="url(#hg)" stroke-width="18" stroke-linecap="round" opacity="0.9"/>
+    <path d="M100,100 m0,-62 a62,62 0 1,1 -0.1,0" fill="none" stroke="url(#hg)" stroke-width="14" stroke-linecap="round" opacity="0.7"/>
+    <path d="M100,100 m0,-40 a40,40 0 1,1 -0.1,0" fill="none" stroke="url(#hg)" stroke-width="10" stroke-linecap="round" opacity="0.5"/>
+    <path d="M100,100 m0,-20 a20,20 0 1,1 -0.1,0" fill="none" stroke="url(#hg)" stroke-width="7" stroke-linecap="round" opacity="0.4"/>
+    <circle cx="100" cy="100" r="6" fill="#f472b6"/>
+  </svg>
+  <div class="hypno-text" id="hypnoText">
+    Смотри на спираль...<br>
+    Твои веки тяжелеют...<br><br>
+    <em>Ты ничего не запомнишь.</em><br><br>
+    8 марта все работали весь день<br>
+    и заслужили <em>премию за отличную работу.</em>
+  </div>
+  <div class="hypno-sub" id="hypnoSub" id="hypnoClose">
+    [нажмите, чтобы выйти из транса]
   </div>
 </div>
 
@@ -433,6 +551,76 @@ max-width: 360px;
   const COLS_DESKTOP = 8;
   const COLS_MOBILE  = 6;
   const ROWS = 8;
+
+  // ===== ПЕРСОНАЛИЗАЦИЯ ПО ГОРОДУ =====
+  const CITY_MAP = {
+    'Saint Petersburg': { name: 'Вика'   },
+    'St Petersburg':    { name: 'Вика'   },
+    'St. Petersburg':   { name: 'Вика'   },
+    'Penza':            { name: 'Аня'    },
+    'Perm':             { name: 'Аня'    },
+    'Novosibirsk':      { name: 'Настя'  },
+    'Engels':           { name: 'Марина' },
+    'Belgorod':         { name: 'Саша'   },
+    'Podolsk':          { name: 'Катя'   },
+    'Khimki':           { name: 'Катя'   },
+    'Mytishchi':        { name: 'Катя'   },
+    'Korolev':          { name: 'Катя'   },
+    'Krasnogorsk':      { name: 'Катя'   },
+    'Balashikha':       { name: 'Катя'   },
+    'Odintsovo':        { name: 'Катя'   },
+    'Lyubertsy':        { name: 'Катя'   },
+    'Elektrostal':      { name: 'Катя'   },
+    'Serpukhov':        { name: 'Катя'   },
+    'Domodedovo':       { name: 'Катя'   },
+    'Chekhov':          { name: 'Катя'   },
+  };
+  const MOSCOW_REGION = ['Moscow Oblast','Moskovskaya','Московская'];
+
+  let guestName = null;
+  let isMoscow  = false;
+
+  async function detectGuest() {
+    try {
+      const r = await fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(5000) });
+      const d = await r.json();
+      const city   = d.city   || '';
+      const region = d.region || '';
+
+      // Подмосковье по региону (не сам город Москва)
+      const isMoscowOblast = MOSCOW_REGION.some(k =>
+        region.toLowerCase().includes(k.toLowerCase())
+      ) && city !== 'Moscow';
+
+      if (isMoscowOblast) {
+        guestName = 'Катя'; return;
+      }
+      if (city === 'Moscow') {
+        isMoscow = true; return;
+      }
+      const match = CITY_MAP[city];
+      if (match) guestName = match.name;
+    } catch(e) { /* тихо — общее поздравление */ }
+  }
+
+  function updateCongratsText() {
+    const titleEl = document.getElementById('congratsTitle');
+    const textEl  = document.getElementById('congratsText');
+    if (guestName) {
+      titleEl.innerHTML = '<em>' + guestName + '</em>, ты великолепна!';
+      textEl.innerHTML  = 'Все пузыри лопнуты — стресс официально побеждён! 🎊<br><br>' +
+        'С праздником весны и красоты, дорогая <strong>' + guestName + '</strong>!<br>' +
+        'Пусть этот день будет таким же лёгким и сияющим, как ты сама 🌸';
+    } else if (isMoscow) {
+      titleEl.innerHTML = 'Дорогая <em>москвичка!</em>';
+      textEl.innerHTML  = 'Все пузыри лопнуты — стресс официально побеждён! 🎊<br><br>' +
+        'С праздником весны и красоты! Пусть этот день будет таким же лёгким и сияющим, как ты сама 🌸';
+    }
+    // иначе — оставляем дефолтный текст
+  }
+
+  // Запускаем сразу, до того как пользователь долопает пузыри
+  const geoPromise = detectGuest();
 
   const COLORS = [
     { color: '#fda4af', shadow: '#fb7185' },
@@ -499,7 +687,9 @@ max-width: 360px;
     counter.classList.add('pop');
 
     if (popped === total) {
-      setTimeout(() => {
+      setTimeout(async () => {
+        await geoPromise;
+        updateCongratsText();
         overlay.classList.add('show');
         launchConfetti();
       }, 400);
@@ -558,6 +748,32 @@ max-width: 360px;
 
   resetBtn.addEventListener('click', reset);
   againBtn.addEventListener('click', reset);
+
+  // ===== ГИПНОЗ ДЛЯ ДИМЫ =====
+  const hypnoOverlay = document.getElementById('hypnoOverlay');
+  const hypnoText    = document.getElementById('hypnoText');
+  const hypnoSub     = document.getElementById('hypnoSub');
+  const dimaBtn      = document.getElementById('dimaBtn');
+
+  dimaBtn.addEventListener('click', () => {
+    hypnoOverlay.classList.add('show');
+    // Текст появляется с задержкой для эффекта
+    setTimeout(() => hypnoText.classList.add('show'), 800);
+    setTimeout(() => hypnoSub.classList.add('show'), 3500);
+  });
+
+  hypnoSub.addEventListener('click', () => {
+    hypnoText.classList.remove('show');
+    hypnoSub.classList.remove('show');
+    setTimeout(() => hypnoOverlay.classList.remove('show'), 600);
+  });
+  hypnoOverlay.addEventListener('click', e => {
+    if (e.target === hypnoOverlay) {
+      hypnoText.classList.remove('show');
+      hypnoSub.classList.remove('show');
+      setTimeout(() => hypnoOverlay.classList.remove('show'), 600);
+    }
+  });
 
   // Floating background emojis
   const floaties = document.getElementById('floaties');
