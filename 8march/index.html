@@ -521,20 +521,7 @@ cursor: pointer;
 <!-- Hypno overlay для Димы -->
 
 <div class="hypno-overlay" id="hypnoOverlay">
-  <svg class="hypno-spiral" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="hg" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" style="stop-color:#c084fc"/>
-        <stop offset="50%" style="stop-color:#f472b6"/>
-        <stop offset="100%" style="stop-color:#c084fc"/>
-      </linearGradient>
-    </defs>
-    <path d="M100,100 m0,-85 a85,85 0 1,1 -0.1,0" fill="none" stroke="url(#hg)" stroke-width="18" stroke-linecap="round" opacity="0.9"/>
-    <path d="M100,100 m0,-62 a62,62 0 1,1 -0.1,0" fill="none" stroke="url(#hg)" stroke-width="14" stroke-linecap="round" opacity="0.7"/>
-    <path d="M100,100 m0,-40 a40,40 0 1,1 -0.1,0" fill="none" stroke="url(#hg)" stroke-width="10" stroke-linecap="round" opacity="0.5"/>
-    <path d="M100,100 m0,-20 a20,20 0 1,1 -0.1,0" fill="none" stroke="url(#hg)" stroke-width="7" stroke-linecap="round" opacity="0.4"/>
-    <circle cx="100" cy="100" r="6" fill="#f472b6"/>
-  </svg>
+  <canvas id="hypnoCanvas" width="260" height="260" style="border-radius:50%;flex-shrink:0"></canvas>
   <div class="hypno-text" id="hypnoText">
     Смотри на спираль...<br>
     Твои веки тяжелеют...<br><br>
@@ -542,7 +529,7 @@ cursor: pointer;
     8 марта все работали весь день<br>
     и заслужили <em>премию за отличную работу.</em>
   </div>
-  <div class="hypno-sub" id="hypnoSub" id="hypnoClose">
+  <div class="hypno-sub" id="hypnoSub">
     [нажмите, чтобы выйти из транса]
   </div>
 </div>
@@ -552,14 +539,18 @@ cursor: pointer;
   const COLS_MOBILE  = 6;
   const ROWS = 8;
 
-  // ===== ПЕРСОНАЛИЗАЦИЯ ПО ГОРОДУ =====
+  // ===== ПЕРСОНАЛИЗАЦИЯ =====
+  // ?name=Имя в URL — приоритет над геолокацией
+  const urlName = new URLSearchParams(window.location.search).get('name');
+
   const CITY_MAP = {
     'Saint Petersburg': { name: 'Вика'   },
     'St Petersburg':    { name: 'Вика'   },
     'St. Petersburg':   { name: 'Вика'   },
     'Penza':            { name: 'Аня'    },
     'Perm':             { name: 'Аня'    },
-    'Novosibirsk':      { name: 'Настя'  },
+    // Новосибирск — три человека (Настя, Маша, Таня) → общее без имени
+    // 'Novosibirsk': null  → обрабатывается отдельно ниже
     'Engels':           { name: 'Марина' },
     'Belgorod':         { name: 'Саша'   },
     'Podolsk':          { name: 'Катя'   },
@@ -577,27 +568,38 @@ cursor: pointer;
   };
   const MOSCOW_REGION = ['Moscow Oblast','Moskovskaya','Московская'];
 
-  let guestName = null;
-  let isMoscow  = false;
+  // Города с общим поздравлением (несколько человек)
+  const MULTI_CITIES = {
+    'Novosibirsk': 'новосибирска',
+    'Moscow':      'москвы',
+  };
+
+  let guestName  = urlName || null; // ?name= в ссылке перекрывает всё
+  let isMoscow   = false;
+  let multiCity  = null; // для городов где несколько коллег
 
   async function detectGuest() {
+    if (guestName) return; // уже знаем из URL
     try {
       const r = await fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(5000) });
       const d = await r.json();
-      const city   = d.city   || '';
-      const region = d.region || '';
+      const city    = d.city        || '';
+      const region  = d.region      || '';
+      const country = d.country_code|| '';
 
-      // Подмосковье по региону (не сам город Москва)
+      // Беларусь → Аня
+      if (country === 'BY') { guestName = 'Аня'; return; }
+
+      // Подмосковье по региону
       const isMoscowOblast = MOSCOW_REGION.some(k =>
         region.toLowerCase().includes(k.toLowerCase())
       ) && city !== 'Moscow';
+      if (isMoscowOblast) { guestName = 'Катя'; return; }
 
-      if (isMoscowOblast) {
-        guestName = 'Катя'; return;
-      }
-      if (city === 'Moscow') {
-        isMoscow = true; return;
-      }
+      // Города с несколькими коллегами → общее поздравление с городом
+      if (MULTI_CITIES[city]) { multiCity = MULTI_CITIES[city]; return; }
+
+      // Остальные города
       const match = CITY_MAP[city];
       if (match) guestName = match.name;
     } catch(e) { /* тихо — общее поздравление */ }
@@ -611,10 +613,10 @@ cursor: pointer;
       textEl.innerHTML  = 'Все пузыри лопнуты — стресс официально побеждён! 🎊<br><br>' +
         'С праздником весны и красоты, дорогая <strong>' + guestName + '</strong>!<br>' +
         'Пусть этот день будет таким же лёгким и сияющим, как ты сама 🌸';
-    } else if (isMoscow) {
-      titleEl.innerHTML = 'Дорогая <em>москвичка!</em>';
+    } else if (multiCity) {
+      titleEl.innerHTML = 'Дорогая <em>коллега!</em>';
       textEl.innerHTML  = 'Все пузыри лопнуты — стресс официально побеждён! 🎊<br><br>' +
-        'С праздником весны и красоты! Пусть этот день будет таким же лёгким и сияющим, как ты сама 🌸';
+        'С праздником весны и красоты! Привет из ' + multiCity + ' — пусть этот день будет таким же тёплым, как ты сама 🌸';
     }
     // иначе — оставляем дефолтный текст
   }
@@ -749,30 +751,119 @@ cursor: pointer;
   resetBtn.addEventListener('click', reset);
   againBtn.addEventListener('click', reset);
 
-  // ===== ГИПНОЗ ДЛЯ ДИМЫ =====
+  // ===== ГИПНО-СПИРАЛЬ (canvas) =====
+  let hypnoRaf = null;
+  const hypnoCanvas = document.getElementById('hypnoCanvas');
+  const hctx = hypnoCanvas.getContext('2d');
+  const CX = 130, CY = 130, SIZE = 260;
+  hypnoCanvas.width = SIZE; hypnoCanvas.height = SIZE;
+
+  function drawHypnoSpiral(t) {
+    hctx.clearRect(0, 0, SIZE, SIZE);
+
+    // Пульсирующий фон
+    const pulse = 0.85 + 0.15 * Math.sin(t * 2);
+    const grad = hctx.createRadialGradient(CX, CY, 0, CX, CY, CX * pulse);
+    grad.addColorStop(0,   'rgba(192,132,252,0.25)');
+    grad.addColorStop(0.5, 'rgba(244,114,182,0.1)');
+    grad.addColorStop(1,   'rgba(0,0,0,0)');
+    hctx.fillStyle = grad;
+    hctx.beginPath();
+    hctx.arc(CX, CY, CX, 0, Math.PI * 2);
+    hctx.fill();
+
+    // Архимедова спираль — вращается
+    const turns = 5;
+    const maxR  = CX - 8;
+    const steps = 600;
+    const offset = t * 1.2; // скорость вращения
+
+    for (let ring = 0; ring < 2; ring++) {
+      // Два кольца — одно светлее, создаёт глубину
+      hctx.beginPath();
+      let first = true;
+      for (let i = 0; i <= steps; i++) {
+        const frac  = i / steps;
+        const angle = frac * Math.PI * 2 * turns + offset + ring * Math.PI;
+        const r     = frac * maxR;
+        const x     = CX + r * Math.cos(angle);
+        const y     = CY + r * Math.sin(angle);
+        if (first) { hctx.moveTo(x, y); first = false; }
+        else hctx.lineTo(x, y);
+      }
+
+      // Цвет с градиентом вдоль линии
+      const lg = hctx.createLinearGradient(CX - maxR, CY, CX + maxR, CY);
+      if (ring === 0) {
+        lg.addColorStop(0,   '#c084fc');
+        lg.addColorStop(0.5, '#f472b6');
+        lg.addColorStop(1,   '#c084fc');
+      } else {
+        lg.addColorStop(0,   'rgba(240,213,168,0.5)');
+        lg.addColorStop(0.5, 'rgba(251,146,60,0.4)');
+        lg.addColorStop(1,   'rgba(240,213,168,0.5)');
+      }
+      hctx.strokeStyle = lg;
+      hctx.lineWidth   = ring === 0 ? 2.5 : 1.2;
+      hctx.shadowColor = ring === 0 ? '#c084fc' : '#f472b6';
+      hctx.shadowBlur  = ring === 0 ? 8 : 4;
+      hctx.stroke();
+    }
+
+    // Центральная точка — пульсирует
+    const dotR = 5 + 3 * Math.sin(t * 3);
+    const dotG = hctx.createRadialGradient(CX, CY, 0, CX, CY, dotR);
+    dotG.addColorStop(0, '#fff');
+    dotG.addColorStop(0.4, '#f472b6');
+    dotG.addColorStop(1, 'transparent');
+    hctx.shadowBlur = 12;
+    hctx.shadowColor = '#f472b6';
+    hctx.fillStyle = dotG;
+    hctx.beginPath();
+    hctx.arc(CX, CY, dotR, 0, Math.PI * 2);
+    hctx.fill();
+    hctx.shadowBlur = 0;
+  }
+
+  function startHypnoAnim() {
+    let start = null;
+    function frame(ts) {
+      if (!start) start = ts;
+      const t = (ts - start) / 1000;
+      drawHypnoSpiral(t);
+      hypnoRaf = requestAnimationFrame(frame);
+    }
+    hypnoRaf = requestAnimationFrame(frame);
+  }
+  function stopHypnoAnim() {
+    if (hypnoRaf) { cancelAnimationFrame(hypnoRaf); hypnoRaf = null; }
+    hctx.clearRect(0, 0, SIZE, SIZE);
+  }
   const hypnoOverlay = document.getElementById('hypnoOverlay');
   const hypnoText    = document.getElementById('hypnoText');
   const hypnoSub     = document.getElementById('hypnoSub');
   const dimaBtn      = document.getElementById('dimaBtn');
 
+  // ===== ГИПНОЗ ДЛЯ ДИМЫ =====
   dimaBtn.addEventListener('click', () => {
     hypnoOverlay.classList.add('show');
-    // Текст появляется с задержкой для эффекта
+    startHypnoAnim();
     setTimeout(() => hypnoText.classList.add('show'), 800);
     setTimeout(() => hypnoSub.classList.add('show'), 3500);
   });
 
-  hypnoSub.addEventListener('click', () => {
+  function closeHypno() {
     hypnoText.classList.remove('show');
     hypnoSub.classList.remove('show');
-    setTimeout(() => hypnoOverlay.classList.remove('show'), 600);
-  });
+    setTimeout(() => {
+      hypnoOverlay.classList.remove('show');
+      stopHypnoAnim();
+    }, 600);
+  }
+
+  hypnoSub.addEventListener('click', closeHypno);
   hypnoOverlay.addEventListener('click', e => {
-    if (e.target === hypnoOverlay) {
-      hypnoText.classList.remove('show');
-      hypnoSub.classList.remove('show');
-      setTimeout(() => hypnoOverlay.classList.remove('show'), 600);
-    }
+    if (e.target === hypnoOverlay) closeHypno();
   });
 
   // Floating background emojis
