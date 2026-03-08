@@ -458,13 +458,13 @@ cursor: pointer;
 <div class="page">
   <div class="header">
     <span class="header-emoji">🌸</span>
-    <h1>С <em>8 Марта</em>,<br>дорогие коллеги!</h1>
-    <p>Маленький антистресс специально для вас</p>
+    <h1>С <em>8 Марта</em>,<br>девочки!</h1>
+    <p>Эта открытка-антистресс специально для вас</p>
   </div>
 
   <div class="instruction">
     <div class="pulse"></div>
-    Лопайте пузырики — это обязательно!
+    Нажмите на пузырик и он лопнет
   </div>
 
   <div class="counter">
@@ -498,22 +498,22 @@ cursor: pointer;
 <div class="congrats-overlay" id="congratsOverlay">
   <div class="congrats-card">
     <div class="congrats-big">🎉</div>
-    <div class="congrats-title" id="congratsTitle">Вы <em>великолепны!</em></div>
+    <div class="congrats-title" id="congratsTitle">Ты <em>великолепна!</em></div>
     <p class="congrats-text" id="congratsText">
       Все пузыри лопнуты — стресс официально побеждён!<br><br>
-      С праздником весны, красоты и хорошего настроения! Пусть этот день будет таким же лёгким, как эти пузырики 🌸
+      С праздником весны, красоты и хорошего настроения! Пусть этот день и вся весна будут такими же лёгкими и приятными, как эти пузырики 🌸
     </p>
 
-```
+
 <div class="secret-msg">
-  🤫 <strong>Секретное послание:</strong> А и да, сегодня тебе официально можно не работать.
+  🤫 А и да, сегодня тебе официально можно не работать.
   Иди наслаждаться жизнью и проводить время с близкими — ты это заслужила.<br><br>
   <em>P.S. Если этот текст читает Дима —</em>
   <button class="dima-btn" id="dimaBtn">нажми сюда 👆</button>
 </div>
 
 <button class="congrats-btn" id="playAgainBtn" style="margin-top:20px">✨ Ещё раз!</button>
-```
+
 
   </div>
 </div>
@@ -526,7 +526,7 @@ cursor: pointer;
     Смотри на спираль...<br>
     Твои веки тяжелеют...<br><br>
     <em>Ты ничего не запомнишь.</em><br><br>
-    8 марта все работали весь день<br>
+    8 марта все девочки работали весь день<br>
     и заслужили <em>премию за отличную работу.</em>
   </div>
   <div class="hypno-sub" id="hypnoSub">
@@ -613,10 +613,15 @@ cursor: pointer;
       textEl.innerHTML  = 'Все пузыри лопнуты — стресс официально побеждён! 🎊<br><br>' +
         'С праздником весны и красоты, дорогая <strong>' + guestName + '</strong>!<br>' +
         'Пусть этот день будет таким же лёгким и сияющим, как ты сама 🌸';
-    } else if (multiCity) {
+    } else if (multiCity === 'москвы') {
+      titleEl.innerHTML = 'Дорогая! 🌸';
+      textEl.innerHTML  = 'Все пузыри лопнуты — стресс официально побеждён! 🎊<br><br>' +
+        'Сегодня ты так прекрасна, что Собянин уже заказал новую плитку специально под твой образ.<br><br>' +
+        'С праздником! 🌷';
+    } else if (multiCity === 'новосибирска') {
       titleEl.innerHTML = 'Дорогая <em>коллега!</em>';
       textEl.innerHTML  = 'Все пузыри лопнуты — стресс официально побеждён! 🎊<br><br>' +
-        'С праздником весны и красоты! Привет из ' + multiCity + ' — пусть этот день будет таким же тёплым, как ты сама 🌸';
+        'С праздником весны и красоты! Пусть сибирская весна придёт поскорее — ты её точно заслужила 🌸';
     }
     // иначе — оставляем дефолтный текст
   }
@@ -674,7 +679,6 @@ cursor: pointer;
   function popBubble(b) {
     if (b.classList.contains('popped') || b.classList.contains('popping')) return;
     b.classList.add('popping');
-    spawnBurst(b);
     setTimeout(() => {
       b.classList.remove('popping');
       b.classList.add('popped');
